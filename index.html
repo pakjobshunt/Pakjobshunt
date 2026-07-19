@@ -12,7 +12,6 @@
   #pjh-header-inner { max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; }
   #pjh-logo { display:flex; align-items:center; gap:8px; font-weight:600; font-size:18px; }
   #pjh-logo .box { width:34px; height:34px; border-radius:10px; background:#0B6E4F; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; }
-  #pjh-post-btn { background:#12261F; color:#fff; border:none; padding:9px 16px; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
   #pjh-hero { padding:40px 18px 30px; background:linear-gradient(180deg,#EAF4EE 0%, #FBFBF8 100%); }
   #pjh-hero-inner { max-width:1100px; margin:0 auto; }
   #pjh-hero .eyebrow { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#07523A; }
@@ -42,8 +41,12 @@
   .pjh-deadline .label { font-size:11px; margin-bottom:3px; }
   .pjh-bar { height:6px; border-radius:999px; background:#E4E4E0; }
   .pjh-bar-fill { height:6px; border-radius:999px; }
+  .pjh-card-actions { display:flex; gap:8px; margin-top:2px; }
+  .pjh-card-actions a, .pjh-card-actions button { flex:1; text-align:center; font-size:13px; font-weight:600; padding:9px 10px; border-radius:10px; border:none; cursor:pointer; }
+  .pjh-apply-quick { background:#0B6E4F; color:#fff; }
+  .pjh-details-quick { background:#fff; color:#0B6E4F; border:1px solid #0B6E4F !important; }
   #pjh-modal-overlay, #pjh-post-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:999; display:none; align-items:center; justify-content:center; padding:16px; }
-  #pjh-modal, #pjh-post-modal { background:#fff; width:100%; max-width:560px; border-radius:20px; max-height:90vh; overflow-y:auto; }
+  #pjh-modal { background:#fff; width:100%; max-width:560px; border-radius:20px; max-height:90vh; overflow-y:auto; }
   .pjh-modal-header { position:sticky; top:0; background:#fff; display:flex; justify-content:space-between; align-items:center; padding:16px 22px; border-bottom:1px solid #EFEFEA; }
   .pjh-close { border:none; background:none; font-size:20px; cursor:pointer; color:#5B6E64; }
   .pjh-modal-body { padding:20px 22px; display:flex; flex-direction:column; gap:16px; }
@@ -51,9 +54,6 @@
   .pjh-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px; }
   .pjh-detail-grid .lbl { font-size:11px; text-transform:uppercase; color:#8A9A8F; }
   #pjh-apply-btn { flex:1; text-align:center; background:#0B6E4F; color:#fff; padding:13px; border-radius:12px; font-weight:600; font-size:14px; display:block; }
-  #pjh-post-modal label { font-size:11px; text-transform:uppercase; color:#8A9A8F; display:block; margin-top:10px; }
-  #pjh-post-modal input, #pjh-post-modal select, #pjh-post-modal textarea { width:100%; margin-top:4px; border:1px solid #E4E4E0; border-radius:10px; padding:9px 10px; font-size:14px; font-family:inherit; }
-  #pjh-post-submit { margin-top:16px; width:100%; background:#0B6E4F; color:#fff; border:none; padding:13px; border-radius:12px; font-weight:600; cursor:pointer; }
   #pjh-footer { border-top:1px solid #EFEFEA; padding:24px 18px; font-size:12px; color:#8A9A8F; display:flex; justify-content:space-between; max-width:1100px; margin:0 auto; }
   @media (max-width:640px){ #pjh-hero h1{font-size:26px;} .pjh-detail-grid{grid-template-columns:1fr;} }
 </style>
@@ -62,7 +62,6 @@
   <div id="pjh-header">
     <div id="pjh-header-inner">
       <div id="pjh-logo"><span class="box">💼</span><span class="serif">PakJobs<span style="color:#F4B400">Hunt</span></span></div>
-      <button id="pjh-post-btn" onclick="pjhOpenPost()">+ Post a job</button>
     </div>
   </div>
 
@@ -101,35 +100,6 @@
   <div id="pjh-modal" onclick="event.stopPropagation()"></div>
 </div>
 
-<!-- Post job modal -->
-<div id="pjh-post-overlay" onclick="pjhClosePost(event)">
-  <div id="pjh-post-modal" onclick="event.stopPropagation()">
-    <div class="pjh-modal-header">
-      <strong class="serif">Post a new job</strong>
-      <button class="pjh-close" onclick="pjhClosePost()">✕</button>
-    </div>
-    <div style="padding:20px 22px;">
-      <label>Job title</label><input id="pf-title" placeholder="e.g. Accounts Officer">
-      <label>Company name</label><input id="pf-company" placeholder="e.g. Sunrise Textiles">
-      <label>Category</label><select id="pf-category"></select>
-      <label>City</label><select id="pf-city"></select>
-      <label>Job type</label>
-      <select id="pf-type">
-        <option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option>
-      </select>
-      <label>Vacancies</label><input id="pf-vacancies" type="number" value="1">
-      <label>Qualification required</label><input id="pf-qual" placeholder="e.g. BS/MS in relevant field">
-      <label>Experience required</label><input id="pf-exp" placeholder="e.g. 2+ years">
-      <label>Salary (optional)</label><input id="pf-salary" placeholder="e.g. PKR 70,000 – 90,000">
-      <label>Application last date</label><input id="pf-end" type="date">
-      <label>Job description</label><textarea id="pf-desc" rows="4"></textarea>
-      <label>Apply link or email</label><input id="pf-apply" placeholder="hr@company.com or https://...">
-      <button id="pjh-post-submit" onclick="pjhSubmitJob()">Publish job</button>
-      <p style="font-size:11px;color:#8A9A8F;margin-top:8px;">Note: on Blogger this post is stored only in your browser and will disappear on refresh, since Blogger cannot run a database.</p>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   const CATEGORIES = ["Government","Private","IT","Banking","Education","Medical","Engineering"];
@@ -160,11 +130,6 @@
     });
     const citySel = document.getElementById('pjh-city');
     CITIES.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; citySel.appendChild(o); });
-
-    const pfCat = document.getElementById('pf-category');
-    CATEGORIES.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; pfCat.appendChild(o); });
-    const pfCity = document.getElementById('pf-city');
-    CITIES.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; pfCity.appendChild(o); });
 
     render();
   }
@@ -217,6 +182,10 @@
             <div class="label mono" style="color:${expired||urgent?'#B3261E':'#07523A'}">${expired?'Expired':left+'d left'}</div>
             <div class="pjh-bar"><div class="pjh-bar-fill" style="width:${pct}%;background:${expired||urgent?'#B3261E':'#F4B400'}"></div></div>
           </div>
+        </div>
+        <div class="pjh-card-actions">
+          <button class="pjh-details-quick" onclick="event.stopPropagation(); pjhOpenModal(${j.id});">View details</button>
+          <a class="pjh-apply-quick" href="${j.apply && j.apply.startsWith('http') ? j.apply : 'mailto:' + (j.apply||'')}" target="_blank" onclick="event.stopPropagation();">Apply</a>
         </div>`;
       grid.appendChild(card);
     });
@@ -258,31 +227,7 @@
   };
   window.pjhCloseModal = function(e){ if(!e || e.target.id==='pjh-modal-overlay') document.getElementById('pjh-modal-overlay').style.display='none'; };
 
-  window.pjhOpenPost = function(){ document.getElementById('pjh-post-overlay').style.display='flex'; };
-  window.pjhClosePost = function(e){ if(!e || e.target.id==='pjh-post-overlay') document.getElementById('pjh-post-overlay').style.display='none'; };
-
-  window.pjhSubmitJob = function(){
-    const title=document.getElementById('pf-title').value.trim();
-    const company=document.getElementById('pf-company').value.trim();
-    const end=document.getElementById('pf-end').value;
-    const desc=document.getElementById('pf-desc').value.trim();
-    if(!title||!company||!end||!desc){ alert('Please fill in title, company, last date and description.'); return; }
-    jobs.unshift({
-      id:Date.now(), title, company,
-      category:document.getElementById('pf-category').value,
-      city:document.getElementById('pf-city').value,
-      type:document.getElementById('pf-type').value,
-      qualification:document.getElementById('pf-qual').value,
-      experience:document.getElementById('pf-exp').value,
-      salary:document.getElementById('pf-salary').value,
-      vacancies:Number(document.getElementById('pf-vacancies').value)||1,
-      published:"2026-07-19", end, description:desc,
-      apply:document.getElementById('pf-apply').value||"#"
-    });
-    pjhClosePost();
-    render();
-  };
-
   init();
 })();
 </script>
+
