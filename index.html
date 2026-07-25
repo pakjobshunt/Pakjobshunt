@@ -2,10 +2,6 @@
      PakJobsHunt — Blogger-ready version (pure HTML/CSS/JS)
      Paste this ENTIRE block into a Blogger Page/Post HTML view.
      ============================================================ -->
-<!-- ============================================================
-     PakJobsHunt — Blogger-ready version (pure HTML/CSS/JS)
-     Paste this ENTIRE block into a Blogger Page/Post HTML view.
-     ============================================================ -->
 <style>
   #pjh * { box-sizing: border-box; }
   #pjh { font-family: Inter, system-ui, sans-serif; background:#FBFBF8; color:#12261F; }
@@ -108,194 +104,21 @@
 (function(){
   const CATEGORIES = ["Government","Private","IT","Banking","Education","Medical","Engineering"];
   const CITIES = ["Karachi","Lahore","Islamabad","Rawalpindi","Faisalabad","Multan","Peshawar","Quetta"];
-  const TODAY = new Date("2026-07-19");
-
-  let state = { q:"", city:"All", category:"All", sort:"newest" };
-
-  function daysLeft(end){ return Math.ceil((new Date(end)-TODAY)/86400000); }
-  function fmt(d){ return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
-
-  function init(){
-    const catWrap = document.getElementById('pjh-cats');
-    ["All",...CATEGORIES].forEach(c=>{
-      const b=document.createElement('button');
-      b.textContent=c; b.dataset.cat=c;
-      b.onclick=()=>{state.category=c; pjhRender();};
-      catWrap.appendChild(b);
-    });
-    const citySel = document.getElementById('pjh-city');
-    CITIES.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; citySel.appendChild(o); });
-
-    render();
-  }
-
-  function render(){
-    document.getElementById('pjh-count-line').textContent = jobs.length + " live openings across Pakistan";
-    document.querySelectorAll('#pjh-cats button').forEach(b=>{
-      b.classList.toggle('active', b.dataset.cat===state.category);
-    });
-
-    let list = jobs.filter(j=>{
-      const q = document.getElementById('pjh-q').value.toLowerCase();
-      state.q=q; state.city=document.getElementById('pjh-city').value; state.sort=document.getElementById('pjh-sort').value;
-      const mQ = !q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.city.toLowerCase().includes(q);
-      const mCity = state.city==="All" || j.city===state.city;
-      const mCat = state.category==="All" || j.category===state.category;
-      return mQ && mCity && mCat;
-    });
-    list.sort((a,b)=> state.sort==="newest" ? new Date(b.published)-new Date(a.published) : daysLeft(a.end)-daysLeft(b.end));
-
-    document.getElementById('pjh-result-count').textContent = list.length + " job" + (list.length!==1?'s':'') + " found";
-    const grid = document.getElementById('pjh-grid');
-    grid.innerHTML = "";
-    if(list.length===0){
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#8A9A8F;padding:40px 0;">No jobs match your search.</p>';
-      return;
-    }
-    list.forEach(j=>{
-      const left = daysLeft(j.end);
-      const expired = left<0, urgent = left>=0 && left<=5;
-      const pct = expired?100:Math.max(4,100-Math.min(left,20)*5);
-      const isNew = (TODAY-new Date(j.published))/86400000 <= 4;
-      const card = document.createElement('div');
-      card.className='pjh-card';
-      card.onclick=()=>pjhOpenModal(j.id);
-      card.innerHTML = `
-        <div class="pjh-card-top">
-          <div style="display:flex;gap:10px;">
-            <div class="pjh-avatar">${j.company.charAt(0)}</div>
-            <div><h3>${j.title}</h3><p class="company">${j.company}</p></div>
-          </div>
-          ${isNew?'<span class="pjh-new-badge">New</span>':''}
-        </div>
-        <div class="pjh-meta">
-          <span>📍 ${j.city}</span><span>💼 ${j.type}</span><span>🎓 ${j.qualification.split('(')[0].trim()}</span>
-        </div>
-        <div class="pjh-card-bottom">
-          <span class="pjh-posted mono">Posted ${fmt(j.published)}</span>
-          <div class="pjh-deadline">
-            <div class="label mono" style="color:${expired||urgent?'#B3261E':'#07523A'}">${expired?'Expired':left+'d left'}</div>
-            <div class="pjh-bar"><div class="pjh-bar-fill" style="width:${pct}%;background:${expired||urgent?'#B3261E':'#F4B400'}"></div></div>
-          </div>
-        </div>
-        <div class="pjh-card-actions">
-          <button class="pjh-details-quick" onclick="event.stopPropagation(); pjhOpenModal(${j.id});">View details</button>
-          <a class="pjh-apply-quick" href="${j.apply && j.apply.startsWith('http') ? j.apply : 'mailto:' + (j.apply||'')}" target="_blank" onclick="event.stopPropagation();">Apply</a>
-        </div>`;
-      grid.appendChild(card);
-    });
-  }
-
-  window.pjhRender = render;
-
-  window.pjhOpenModal = function(id){
-    const j = jobs.find(x=>x.id===id);
-    const left = daysLeft(j.end);
-    const modal = document.getElementById('pjh-modal');
-    modal.innerHTML = `
-      <div class="pjh-modal-header">
-        <span class="mono" style="font-size:11px;text-transform:uppercase;color:#0B6E4F;">${j.category}</span>
-        <button class="pjh-close" onclick="pjhCloseModal()">✕</button>
-      </div>
-      <div class="pjh-modal-body">
-        <div>
-          <h2 class="serif" style="margin:0;font-size:22px;">${j.title}</h2>
-          <p style="margin:4px 0 0;color:#5B6E64;font-size:14px;">🏢 ${j.company}</p>
-        </div>
-        <div class="pjh-deadline-box" style="background:${left<0?'#FCEBEA':'#EAF4EE'}">
-          <div><p class="lbl">Application deadline</p><p style="font-weight:600;color:${left<0?'#B3261E':'#07523A'}">${fmt(j.end)}</p></div>
-          <span class="mono" style="padding:6px 12px;border-radius:999px;background:${left<0?'#B3261E':'#F4B400'};color:${left<0?'#fff':'#12261F'};font-size:13px;">${left<0?'Closed':left+' days left'}</span>
-        </div>
-        <div class="pjh-detail-grid">
-          <div><p class="lbl">Location</p>${j.city}</div>
-          <div><p class="lbl">Job type</p>${j.type}</div>
-          <div><p class="lbl">Qualification</p>${j.qualification}</div>
-          <div><p class="lbl">Experience</p>${j.experience}</div>
-          <div><p class="lbl">Salary</p>${j.salary||'Not specified'}</div>
-          <div><p class="lbl">Vacancies</p>${j.vacancies}</div>
-          <div><p class="lbl">Published</p>${fmt(j.published)}</div>
-        </div>
-        <div><p class="lbl" style="margin-bottom:6px;">Job description</p><p style="font-size:14px;line-height:1.6;">${j.description}</p></div>
-        <a id="pjh-apply-btn" href="${j.apply.startsWith('http')?j.apply:'mailto:'+j.apply}" target="_blank">Apply now</a>
-      </div>`;
-    document.getElementById('pjh-modal-overlay').style.display='flex';
-  };
-  window.pjhCloseModal = function(e){ if(!e || e.target.id==='pjh-modal-overlay') document.getElementById('pjh-modal-overlay').style.display='none'; };
-
-  init();
-})();
-</script>
-
-
-<div id="pjh">
-  <div id="pjh-header">
-    <div id="pjh-header-inner">
-      <div id="pjh-logo"><span class="box">💼</span><span class="serif">PakJobs<span style="color:#F4B400">Hunt</span></span></div>
-    </div>
-  </div>
-
-  <div id="pjh-hero">
-    <div id="pjh-hero-inner">
-      <p class="eyebrow" id="pjh-count-line"></p>
-      <h1 class="serif">Find your next role,<br>before the deadline closes.</h1>
-      <div id="pjh-search">
-        <input type="text" id="pjh-q" placeholder="Job title, company, or keyword" oninput="pjhRender()">
-        <select id="pjh-city" onchange="pjhRender()"><option value="All">All cities</option></select>
-        <button onclick="pjhRender()">Search</button>
-      </div>
-      <div id="pjh-cats"></div>
-    </div>
-  </div>
-
-  <div id="pjh-list">
-    <div id="pjh-list-head">
-      <h2 class="serif" id="pjh-result-count" style="font-size:17px;margin:0;"></h2>
-      <select id="pjh-sort" onchange="pjhRender()">
-        <option value="newest">Newest first</option>
-        <option value="closing">Closing soon</option>
-      </select>
-    </div>
-    <div id="pjh-grid"></div>
-  </div>
-
-  <div id="pjh-footer">
-    <span>© 2026 PakJobsHunt — jobs across Pakistan.</span>
-    <span class="mono">Built for job seekers, by job seekers.</span>
-  </div>
-</div>
-
-<!-- Job detail modal -->
-<div id="pjh-modal-overlay" onclick="pjhCloseModal(event)">
-  <div id="pjh-modal" onclick="event.stopPropagation()"></div>
-</div>
-
-<script>
-(function(){
-  const CATEGORIES = ["Government","Private","IT","Banking","Education","Medical","Engineering"];
-  const CITIES = ["Karachi","Lahore","Islamabad","Rawalpindi","Faisalabad","Multan","Peshawar","Quetta"];
-  const TODAY = new Date("2026-07-19");
+  const TODAY = new Date("2026-07-25");
 
   let jobs = [
-      
-<script>
-(function(){
-  const CATEGORIES = ["Government","Private","IT","Banking","Education","Medical","Engineering"];
-  const CITIES = ["Karachi","Lahore","Islamabad","Rawalpindi","Faisalabad","Multan","Peshawar","Quetta"];
-  const TODAY = new Date("2026-07-19");
-
-  let jobs = [
-{id:404,title:"Study Visa Consultant",company:"Diamond Visa Solutions Pvt Ltd",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's degree, good communication skills",experience:"Fresh / 1 year",salary:"Not specified",vacancies:2,published:"2026-07-19",end:"2026-08-05",description:"Diamond Visa Solutions (Main Office Gulberg 3, Lahore) is hiring a Study Visa Consultant to assist students with study visa applications and consultations. Onsite and remote working options available, 8-hour working shift.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
-       {id:403,title:"Personal Assistant to Director / HR Manager",company:"NTIS PAK - Natrinspa Immigrations Services (Private) Limited",category:"Private",city:"Islamabad",type:"Full-time",qualification:"Bachelor's degree, HR/Admin background preferred",experience:"1-2 years",salary:"Not specified",vacancies:1,published:"2026-07-18",end:"2026-08-01",description:"NTIS PAK is hiring a Personal Assistant to the Director / HR Manager. Responsibilities include ensuring HR practices comply with company policies and applicable labour regulations, and assisting in organizing company events and training sessions.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
-       {id:402,title:"Accountant (Finance Department)",company:"DayZee Farms",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's/Master's in Accounting or Finance",experience:"1-3 years preferred",salary:"Not specified",vacancies:1,published:"2026-07-20",end:"2026-08-05",description:"DayZee Farms, a pioneering agribusiness transforming Pakistan's agricultural and livestock sectors, is hiring an Accountant for its Finance Department. The company operates advanced irrigation systems across 4,200 acres and is expanding into solar energy and biotechnology.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
-       {id:401,title:"Project Manager / Site Engineer / CCTV Technician (Multiple Posts)",company:"Private Company",category:"Private",city:"Karachi",type:"Full-time",qualification:"Intermediate, Bachelor, Master, MBA, BA, BBA, MS (varies by post)",experience:"As per post requirement",salary:"Not specified",vacancies:"Multiple",published:"2026-07-20",end:"2026-07-30",description:"A private company in Karachi has announced multiple management and technical positions including Project Manager, Site Engineer, CCTV Technician, Project Coordinator, ELV Engineer, Liaison Officer, Technical Manager, and Business Development Manager. Apply as per details in the official job advertisement.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"}
-       {id:108,title:"Fisheries & Coastal Development Department Quetta",company:"Fisheries Department",category:"Government",city:"Quetta",type:"Full-time",qualification:"Middle, Matric",experience:"As per department criteria",salary:"Not specified",vacancies:"Multiple",published:"2026-07-24",end:"2026-08-15",description:"Fisheries & Coastal Development Department, Quetta (Balochistan) has announced new government job opportunities. Applications are invited from eligible candidates for Government Jobs in Quetta. The official advertisement was published in Jang Newspaper on 24 July, 2026. HOW TO APPLY: Interested candidates meeting the criteria (Middle / Matric) should submit their applications along with required documents as mentioned in the official advertisement. Applications must reach the Fisheries Department office before 15 August, 2026. No online apply link is available for this post — application must be submitted physically as per the official advertisement.",apply:"#"},
-       {id:108,title:"Injection Molding Supervisor & Operator Jobs 2026",company:"Plastic Factory",category:"private",city:"Karachi",type:"Full-time",qualification:"Matric,inter, bachelor, Master",experience:"0 year",salary:" As required",vacancies:"1",published:"23 July, 2026",end:"08 August, 2026",description:"A plastic manufacturing company in Karachi is seeking skilled and motivated candidates for the positions of Injection Molding Supervisor and Injection Molding Operator..",apply:"https://www.jobz.pk"},
-       {id:108,title:"Executive Officer-Procurement",company:"Punjab Safe Cities Authority - PSCA Lahore",category:"Government",city:"Lahore",type:"Full-time",qualification:"Intermediate, Bachelor, Master",experience:"0 years",salary:"PKR 100000 to 323800",vacancies:"Multiple",published:"2026-07-19",end:"2026-07-31",description:"Punjab Safe Cities Authority (PSCA), Lahore invites applications through an open competitive process for the multiple positions  on contract basis. Interested candidates should review the complete eligibility criteria on the official advertisement before applying",apply:"https://psca.gop.pk/career/"},
-       {id:1,title:"Assistant Manager – Operations",company:"Metro Bank of Pakistan",category:"Banking",city:"Karachi",type:"Full-time",qualification:"MBA / BBA (16 years education)",experience:"2–4 years",salary:"PKR 90,000 – 120,000",vacancies:3,published:"2026-07-10",end:"2026-08-05",description:"Metro Bank of Pakistan is looking for a detail-oriented Assistant Manager to oversee daily branch operations, ensure compliance with SBP regulations, and lead a small team of tellers and CSOs.",apply:"careers@metrobank.example.com"},
+    {id:1,title:"Assistant Manager – Operations",company:"Metro Bank of Pakistan",category:"Banking",city:"Karachi",type:"Full-time",qualification:"MBA / BBA (16 years education)",experience:"2–4 years",salary:"PKR 90,000 – 120,000",vacancies:3,published:"2026-07-10",end:"2026-08-05",description:"Metro Bank of Pakistan is looking for a detail-oriented Assistant Manager to oversee daily branch operations, ensure compliance with SBP regulations, and lead a small team of tellers and CSOs.",apply:"careers@metrobank.example.com"},
     {id:2,title:"Software Engineer (React / Node.js)",company:"TechNova Solutions",category:"IT",city:"Lahore",type:"Full-time",qualification:"BS Computer Science",experience:"1–3 years",salary:"PKR 120,000 – 180,000",vacancies:5,published:"2026-07-14",end:"2026-07-31",description:"TechNova Solutions is expanding its product engineering team. We're hiring engineers comfortable across the stack, building REST APIs in Node.js and crafting responsive interfaces in React.",apply:"https://technova.example.com/careers"},
     {id:3,title:"Lecturer – Mathematics",company:"Federal Board of Education",category:"Government",city:"Islamabad",type:"Full-time",qualification:"MPhil Mathematics",experience:"3+ years teaching",salary:"As per government scale (BPS-17)",vacancies:8,published:"2026-06-28",end:"2026-07-25",description:"The Federal Board of Education invites applications for the post of Lecturer in Mathematics at government degree colleges. Selection via written test and interview.",apply:"https://fbe.example.gov.pk/jobs"},
     {id:4,title:"Site Civil Engineer",company:"Al-Falah Construction Co.",category:"Engineering",city:"Faisalabad",type:"Contract",qualification:"BSc Civil Engineering, PEC registered",experience:"2+ years",salary:"PKR 100,000 – 140,000",vacancies:2,published:"2026-07-08",end:"2026-07-22",description:"Al-Falah Construction Co. requires a site civil engineer for an ongoing residential housing project, including site supervision and quality control.",apply:"hr@alfalahconstruction.example.com"},
     {id:5,title:"Staff Nurse",company:"Al-Shifa General Hospital",category:"Medical",city:"Rawalpindi",type:"Full-time",qualification:"BSN / Diploma in Nursing",experience:"1+ years",salary:"PKR 60,000 – 80,000",vacancies:10,published:"2026-07-15",end:"2026-08-10",description:"Al-Shifa General Hospital is hiring registered staff nurses for its emergency and general ward departments.",apply:"jobs@alshifahospital.example.com"},
+    {id:109,title:"Fisheries & Coastal Development Department Quetta",company:"Fisheries Department",category:"Government",city:"Quetta",type:"Full-time",qualification:"Middle, Matric",experience:"As per department criteria",salary:"Not specified",vacancies:"Multiple",published:"2026-07-24",end:"2026-08-15",description:"Fisheries & Coastal Development Department, Quetta (Balochistan) has announced new government job opportunities. Applications are invited from eligible candidates for Government Jobs in Quetta. The official advertisement was published in Jang Newspaper on 24 July, 2026. HOW TO APPLY: Interested candidates meeting the criteria (Middle / Matric) should submit their applications along with required documents as mentioned in the official advertisement. Applications must reach the Fisheries Department office before 15 August, 2026. No online apply link is available for this post — application must be submitted physically as per the official advertisement.",apply:"#"},
+    {id:110,title:"Injection Molding Supervisor & Operator Jobs 2026",company:"Plastic Factory",category:"Private",city:"Karachi",type:"Full-time",qualification:"Matric, Inter, Bachelor, Master",experience:"Fresh / 0 years",salary:"As required",vacancies:1,published:"2026-07-23",end:"2026-08-08",description:"A plastic manufacturing company in Karachi is seeking skilled and motivated candidates for the positions of Injection Molding Supervisor and Injection Molding Operator.",apply:"https://www.jobz.pk"},
+    {id:111,title:"Executive Officer-Procurement",company:"Punjab Safe Cities Authority - PSCA Lahore",category:"Government",city:"Lahore",type:"Full-time",qualification:"Intermediate, Bachelor, Master",experience:"As per post requirement",salary:"PKR 100,000 – 323,800",vacancies:"Multiple",published:"2026-07-19",end:"2026-07-31",description:"Punjab Safe Cities Authority (PSCA), Lahore invites applications through an open competitive process for multiple positions on contract basis. Interested candidates should review the complete eligibility criteria on the official advertisement before applying.",apply:"https://psca.gop.pk/career/"},
+    {id:401,title:"Project Manager / Site Engineer / CCTV Technician (Multiple Posts)",company:"Private Company",category:"Private",city:"Karachi",type:"Full-time",qualification:"Intermediate, Bachelor, Master, MBA, BA, BBA, MS (varies by post)",experience:"As per post requirement",salary:"Not specified",vacancies:"Multiple",published:"2026-07-20",end:"2026-07-30",description:"A private company in Karachi has announced multiple management and technical positions including Project Manager, Site Engineer, CCTV Technician, Project Coordinator, ELV Engineer, Liaison Officer, Technical Manager, and Business Development Manager. Apply as per details in the official job advertisement.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+    {id:402,title:"Accountant (Finance Department)",company:"DayZee Farms",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's/Master's in Accounting or Finance",experience:"1-3 years preferred",salary:"Not specified",vacancies:1,published:"2026-07-20",end:"2026-08-05",description:"DayZee Farms, a pioneering agribusiness transforming Pakistan's agricultural and livestock sectors, is hiring an Accountant for its Finance Department. The company operates advanced irrigation systems across 4,200 acres and is expanding into solar energy and biotechnology.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+    {id:403,title:"Personal Assistant to Director / HR Manager",company:"NTIS PAK - Natrinspa Immigrations Services (Private) Limited",category:"Private",city:"Islamabad",type:"Full-time",qualification:"Bachelor's degree, HR/Admin background preferred",experience:"1-2 years",salary:"Not specified",vacancies:1,published:"2026-07-18",end:"2026-08-01",description:"NTIS PAK is hiring a Personal Assistant to the Director / HR Manager. Responsibilities include ensuring HR practices comply with company policies and applicable labour regulations, and assisting in organizing company events and training sessions.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+    {id:404,title:"Study Visa Consultant",company:"Diamond Visa Solutions Pvt Ltd",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's degree, good communication skills",experience:"Fresh / 1 year",salary:"Not specified",vacancies:2,published:"2026-07-19",end:"2026-08-05",description:"Diamond Visa Solutions (Main Office Gulberg 3, Lahore) is hiring a Study Visa Consultant to assist students with study visa applications and consultations. Onsite and remote working options available, 8-hour working shift.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"}
   ];
 
   let state = { q:"", city:"All", category:"All", sort:"newest" };
@@ -413,4 +236,3 @@
   init();
 })();
 </script>
-
