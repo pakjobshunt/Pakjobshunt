@@ -495,7 +495,18 @@ document.getElementById("jobDetails").innerHTML = `
 <p><b>Vacancies:</b> ${j.vacancies}</p>
 <p><b>Published:</b> ${j.published}</p>
 <p><b>Deadline:</b> ${j.end}</p>
-
+${j.positions ? `
+<h3>Available Positions</h3>
+<ul>
+${j.positions.map(p=>`
+<li>
+<b>${p.title}</b><br>
+Qualification: ${p.qualification}<br>
+Experience: ${p.experience}
+</li>
+`).join("")}
+</ul>
+` : ""}
 <p><b>Description:</b><br>${j.description}</p>
 
 <br>
