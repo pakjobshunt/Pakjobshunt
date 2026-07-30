@@ -446,21 +446,41 @@ function searchJobs() {
   currentPage = 1;
   renderJobs();
 }
+
 function showDetails(id){
 
 const j = jobs.find(job => job.id === id);
 
-alert(
-"Job: " + j.title +
-"\n\nCompany: " + j.company +
-"\nCity: " + j.city +
-"\nQualification: " + j.qualification +
-"\nExperience: " + j.experience +
-"\nSalary: " + j.salary +
-"\nVacancies: " + j.vacancies +
-"\nDeadline: " + j.end +
-"\n\n" + j.description
-);
+document.getElementById("jobDetails").innerHTML = `
+<h2>${j.title}</h2>
+
+<p><b>Company:</b> ${j.company}</p>
+<p><b>Category:</b> ${j.category}</p>
+<p><b>City:</b> ${j.city}</p>
+<p><b>Job Type:</b> ${j.type}</p>
+<p><b>Qualification:</b> ${j.qualification}</p>
+<p><b>Experience:</b> ${j.experience}</p>
+<p><b>Salary:</b> ${j.salary}</p>
+<p><b>Vacancies:</b> ${j.vacancies}</p>
+<p><b>Published:</b> ${j.published}</p>
+<p><b>Deadline:</b> ${j.end}</p>
+
+<p><b>Description:</b><br>${j.description}</p>
+
+<br>
+
+<a class="apply" href="${j.apply}" target="_blank">Apply Now</a>
+`;
+
+document.getElementById("jobModal").style.display = "block";
+
+}
+
+function closeModal(){
+
+document.getElementById("jobModal").style.display = "none";
+
+}
 
   }
 renderJobs();
