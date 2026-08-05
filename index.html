@@ -1195,7 +1195,30 @@ function renderJobs(list = currentJobsList) {
 
   renderPaginationControls(list.length);
 }
+function renderSchemes() {
+    const box = document.getElementById("schemes");
 
+    box.innerHTML = "";
+
+    schemes.forEach(s => {
+        box.innerHTML += `
+        <div class="job">
+            <span class="badge">${s.category}</span>
+
+            <h3>${s.title}</h3>
+
+            <p><b>Department:</b> ${s.department}</p>
+
+            <p>${s.description}</p>
+
+            <button class="details" onclick="showSchemeDetails(${s.id})">
+                مکمل تفصیل
+            </button>
+        </div>
+        `;
+    });
+}
+  
 function renderPaginationControls(totalItems) {
   const paginationBox = document.getElementById("pagination");
   paginationBox.innerHTML = "";
@@ -1301,7 +1324,52 @@ Experience: ${p.experience}
 document.getElementById("jobModal").style.display = "block";
 
 }
+function showSchemeDetails(id) {
 
+    let s = schemes.find(x => x.id == id);
+
+    if (!s) return;
+
+    document.body.innerHTML = `
+    <div class="container">
+
+        <h2>${s.title}</h2>
+
+        <p><b>محکمہ:</b> ${s.department}</p>
+
+        <img src="${s.image}" style="width:100%;max-width:500px;border-radius:10px;">
+
+        <h3>تفصیل</h3>
+        <p>${s.description}</p>
+
+        <h3>اہلیت</h3>
+        <ul>
+            ${s.eligibility.map(i=>`<li>${i}</li>`).join("")}
+        </ul>
+
+        <h3>فوائد</h3>
+        <ul>
+            ${s.benefits.map(i=>`<li>${i}</li>`).join("")}
+        </ul>
+
+        <p><b>آخری تاریخ:</b> ${s.lastDate}</p>
+
+        <p><b>اسٹیٹس:</b> ${s.status}</p>
+
+        <p><b>ہیلپ لائن:</b> ${s.helpline}</p>
+
+        <a href="${s.apply}" target="_blank" class="apply">
+            آن لائن درخواست دیں
+        </a>
+
+        <br><br>
+
+        <button onclick="location.reload()">⬅ واپس جائیں</button>
+
+    </div>
+    `;
+}
+  
 function closeModal(){
 
 document.getElementById("jobModal").style.display = "none";
