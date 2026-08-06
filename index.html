@@ -1330,7 +1330,9 @@ function showSchemeDetails(id) {
 
     if (!s) return;
 
-    document.body.innerHTML = `
+    document.getElementById("jobModal").style.display = "block";
+
+document.getElementById("jobDetails").innerHTML = `
     <div class="container">
 
         <h2>${s.title}</h2>
