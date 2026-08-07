@@ -12,9 +12,55 @@
 <meta name="author" content="PakJobsHunt">
 
 <link rel="icon" href="favicon.ico">
-
+  
 <style>
-*{
+.facebook{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#1877F2;
+    color:white;
+    font-size:32px;
+    text-decoration:none;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+    transition:.3s;
+}
+
+.facebook:hover{
+    transform:scale(1.1);
+}
+  
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:white;
+    font-size:32px;
+    text-decoration:none;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+    transition:0.3s;
+}
+
+.whatsapp:hover{
+    transform:scale(1.1);
+}
+  
+  *{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -254,12 +300,10 @@ width:100%;
 <div class="container header-flex">
 <div class="logo">PakJobsHunt</div>
 <nav>
-<a href="#">Home</a>
-<a href="#">Government</a>
-<a href="#">Private</a>
-<a href="#">IT</a>
-<a href="#">Banking</a>
-<a href="#">Contact</a>
+    <a href="#home">🏠 Home</a>
+    <a href="#jobs">💼 Jobs</a>
+    <a href="#schemes">🏛 Government Schemes</a>
+    <a href="#contact">📞 Contact</a>
 </nav>
 </div>
 </header>
@@ -1403,5 +1447,11 @@ renderJobs();
 
   </div>
 </div>
+<a href="https://wa.me/92405959701" class="whatsapp" target="_blank">
+    💬
+</a>
+  <a href="https://www.facebook.com/share/1969vvSxBa/" class="facebook" target="_blank">
+    f
+  </a>
 </body>
 </html>
