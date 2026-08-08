@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PakJobsHunt - Latest Government & Private Jobs in Pakistan</title>
+
+<meta name="description" content="Find the latest Government Jobs, Private Jobs, IT Jobs, Banking Jobs, Army Jobs, WAPDA Jobs, PPSC Jobs and FPSC Jobs in Pakistan.">
+<meta name="keywords" content="Pakistan Jobs, Government Jobs, Private Jobs, IT Jobs, NADRA Jobs, PPSC Jobs, FPSC Jobs, Army Jobs">
+<meta name="author" content="PakJobsHunt">
+
+<link rel="icon" href="favicon.ico">
+  
+<style>
+.topbtn{
+    position:fixed;
+    bottom:160px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#00695c;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:30px;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+}
+  
+.facebook{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#1877F2;
+    color:white;
+    font-size:32px;
+    text-decoration:none;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+    transition:.3s;
+}
+
+.facebook:hover{
+    transform:scale(1.1);
+}
+  
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:white;
+    font-size:32px;
+    text-decoration:none;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:9999;
+    transition:0.3s;
+}
+
+.whatsapp:hover{
+    transform:scale(1.1);
+}
+  
+  *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+color:#222;
+}
+
+header{
+background:#00695c;
+padding:15px;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.container{
+width:95%;
+max-width:1300px;
+margin:auto;
+}
+
+.header-flex{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#fff;
+}
+
+nav{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+background:linear-gradient(135deg,#009688,#00695c);
+color:#fff;
+padding:60px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:30px;
+}
+
+.search-area{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+}
+
+.search-area input,
+.search-area select{
+padding:14px;
+border:none;
+border-radius:8px;
+font-size:16px;
+min-width:240px;
+}
+
+.search-area button{
+padding:14px 30px;
+background:#ff9800;
+border:none;
+border-radius:8px;
+color:#fff;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin:40px auto;
+}
+
+.stat{
+background:#fff;
+padding:20px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.stat h2{
+color:#009688;
+}
+
+.section-title{
+font-size:30px;
+margin:40px 0 20px;
+text-align:center;
+}
+
+#jobs{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+gap:20px;
+padding-bottom:20px;
+}
+
+.job{
+background:#fff;
+border-radius:10px;
+padding:20px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.job:hover{
+transform:translateY(-5px);
+}
+
+.badge{
+display:inline-block;
+padding:5px 10px;
+background:#009688;
+color:#fff;
+border-radius:5px;
+font-size:12px;
+margin-bottom:10px;
+}
+
+.job h3{
+margin-bottom:10px;
+color:#00695c;
+}
+
+.job p{
+margin:6px 0;
+}
+
+.apply{
+display:inline-block;
+margin-top:15px;
+background:#ff9800;
+padding:10px 20px;
+border-radius:8px;
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* Pagination Styling */
+.pagination {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+margin: 20px 0 40px;
+flex-wrap: wrap;
+}
+
+.pagination button {
+padding: 8px 16px;
+border: 1px solid #009688;
+background: #fff;
+color: #009688;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+transition: 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+background: #009688;
+color: #fff;
+}
+
+.pagination button.active {
+background: #009688;
+color: #fff;
+}
+
+.pagination button:disabled {
+border-color: #ccc;
+color: #ccc;
+cursor: not-allowed;
+}
+
+footer{
+background:#00695c;
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+@media(max-width:768px){
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+.hero h1{
+font-size:30px;
+}
+.search-area{
+flex-direction:column;
+}
+.search-area input,
+.search-area select,
+.search-area button{
+width:100%;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="container header-flex">
+<div class="logo">PakJobsHunt</div>
+<nav>
+    <a href="#home">🏠 Home</a>
+    <a href="#jobs">💼 Jobs</a>
+    <a href="#schemes">🏛 Government Schemes</a>
+    <a href="#contact">📞 Contact</a>
+</nav>
+</div>
+</header>
+
+<section id="home" class="hero">
+<h1>Latest Jobs in Pakistan</h1>
+<p>Government • Private • IT • Banking • Army • WAPDA • PPSC • FPSC</p>
+
+<div class="search-area">
+<input id="search" placeholder="Search jobs...">
+<select id="category">
+<option value="All">All Categories</option>
+<option>Government</option>
+<option>Private</option>
+<option>IT</option>
+<option>Banking</option>
+<option>Medical</option>
+<option>Engineering</option>
+</select>
+<button onclick="searchJobs()">Search</button>
+</div>
+</section>
+
+<div class="container">
+<div class="stats">
+<div class="stat">
+<h2 id="totalJobs">0</h2>
+<p>Total Jobs</p>
+</div>
+<div class="stat">
+<h2 id="govJobs">0</h2>
+<p>Government</p>
+</div>
+<div class="stat">
+<h2 id="privateJobs">0</h2>
+<p>Private</p>
+</div>
+<div class="stat">
+<h2 id="itJobs">0</h2>
+<p>IT</p>
+</div>
+</div>
+
+<h2 class="section-title">Latest Jobs</h2>
+<div id="jobs"></div>
+
+<h2 class="section-title">Government Schemes</h2>
+
+<div id="schemes"></div> 
+<!-- Pagination Container -->
+<div class="pagination" id="pagination"></div>
+</div>
+
+  <section id="contact" class="container" style="margin:40px auto;">
+    <h2 class="section-title">📞 Contact Us</h2>
+
+    <p><strong>Email:</strong> muhammadfaizan1137137@gmail.com</p>
+
+    <p><strong>WhatsApp:</strong> +92 405 959 701</p>
+
+    <p><strong>Facebook:</strong>
+<a href="https://www.facebook.com/share/1969vvSxBa/" target="_blank">
+    PakJobsHunt Official Facebook Page
+</a>
+    </p>
+</section>
+<footer>
+<p>© 2026 PakJobsHunt. All Rights Reserved.</p>
+</footer>
+
+<script>
+let schemes = [
+
+{
+  id: 1,
+
+  title: "وزیراعلیٰ پنجاب دیہی خواتین کے لیے مفت مویشی تقسیم اسکیم",
+
+  department: "لائیو اسٹاک اینڈ ڈیری ڈویلپمنٹ ڈیپارٹمنٹ پنجاب",
+
+  category: "حکومتی اسکیم",
+
+  image: "https://attrw.punjab.gov.pk/assets/images/logo.png",
+
+  description: "دیہی خواتین کی معاشی خودمختاری کے لیے مفت گائے اور بھینس کی فراہمی",
+
+  eligibility: [
+    "درخواست گزار جنوبی پنجاب کی رہائشی ہو۔",
+    "بیوہ یا مطلقہ دیہی خاتون ہو۔",
+    "درست شناختی کارڈ (CNIC) موجود ہو۔",
+    "لائیو اسٹاک ڈیپارٹمنٹ سے تصدیق لازمی ہو۔"
+  ],
+
+  benefits: [
+    "مفت گائے یا بھینس",
+    "معاشی خودمختاری",
+    "مویشی پالنے کی تربیت",
+    "حکومتی معاونت"
+  ],
+
+  apply: "https://attrw.punjab.gov.pk",
+
+  helpline: "0800-09211",
+
+  lastDate: "درخواستیں جاری ہیں",
+
+  status: "فعال"
+}
+];
+ 
+ let jobs=[
+
+ {
+  id: 504,
+  title: "Assistant Director DevOps Engineer",
+  company: "Punjab Land Records Authority (PLRA)",
+  category: "Government",
+  city: "Lahore",
+  type: "Full Time",
+
+  qualification: "BSCS / BS (Computer Science) / MSCS (16 Years Education)",
+  experience: "3 Years",
+  salary: "Rs.145,000 - Rs.150,000",
+  vacancies: "2",
+  published: "2026-08-03",
+  end: "2026-08-17",
+
+  posts: "Assistant Director DevOps Engineer (2 Posts)",
+
+  degree: "Bachelor's / Master's (16 Years Education)",
+
+  education: `
+• BSCS
+• BS Computer Science
+• MSCS
+• 16 Years Education
+`,
+
+  degreeArea: `
+• Computer Engineering
+• Computer Science
+`,
+
+  description: `
+Punjab Land Records Authority (PLRA) invites applications for the post of Assistant Director DevOps Engineer.
+
+The selected candidate will develop and maintain CI/CD pipelines, automate infrastructure deployment, manage cloud environments, monitor application performance, implement Infrastructure as Code (IaC), and ensure secure software delivery.
+
+Responsibilities include working with Docker, Kubernetes, Terraform, CloudFormation, AWS, Azure, Google Cloud, Ansible, automated testing, quality assurance, and DevOps best practices.
+
+Applicants should possess BSCS, BS Computer Science or MSCS (16 Years Education) with at least 3 years of relevant DevOps experience.
+
+A competitive monthly salary of Rs.145,000–150,000 will be offered.
+`,
+
+  positions: [
+    {
+      title: "Assistant Director DevOps Engineer",
+      qualification: "BSCS / BSCS (4 Years) / MSCS",
+      experience: "3 Years",
+      age: "24-34 Years",
+      gender: "Male & Female",
+      location: "Lahore",
+      salary: "Rs.145,000-150,000"
+    }
+  ],
+
+  apply: "https://pakjobshunt.github.io"
+},
+ {
+  id: 503,
+  title: "Shrimp Farms & Hatchery Interns",
+  company: "Fisheries Department Punjab",
+  category: "Government",
+  city: "Muzaffargarh",
+  type: "Paid Internship",
+
+  qualification: "Bachelor's / Master's (16 Years Education)",
+  experience: "Fresh Candidates",
+  salary: "Rs. 10,000 Per Month",
+  vacancies: "26",
+  published: "2026-07-24",
+  end: "2026-08-07",
+
+  posts: "Shrimp Farms & Hatchery Interns (26 Posts)",
+
+  degree: "Bachelor's / Master's (16 Years Education)",
+
+  education: `
+• BS (Hons) Zoology
+• BS (Hons) Fisheries
+• Master's (16 Years Education)
+`,
+
+  degreeArea: `
+• Zoology
+• Fisheries
+`,
+
+  description: `
+Punjab Fisheries Department invites applications for 26 Paid Internship positions under the Establishment of Shrimp Estate with Value Chain Project at Rakh Ali Wali, Muzaffargarh.
+
+Selected interns will receive a monthly stipend of Rs.10,000 and gain practical experience in shrimp farming, hatchery management, aquaculture operations, fisheries production, field work, research activities, water quality monitoring, and sustainable aquatic farming techniques.
+
+Fresh graduates having Bachelor's or Master's (16 Years Education) in Zoology or Fisheries are encouraged to apply.
+`,
+
+  positions: [
+    {
+      title: "Shrimp Farms & Hatchery Intern",
+      qualification: "BS (Hons) Zoology / Fisheries or Master's",
+      experience: "Fresh",
+      age: "18-30 Years",
+      gender: "Male & Female",
+      division: "First Division (60% Marks & Above)"
+    }
+  ],
+
+  apply: "https://pakjobshunt.github.io"
+},
+ {
+  id: 502,
+  title: "Data Harmonization and Reconciliation Analyst",
+  company: "Punjab Information Technology Board (PITB)",
+  category: "Government",
+  city: "Lahore",
+  type: "Contract",
+
+  qualification: "Bachelor's / Master's (16 Years Education)",
+  experience: "2 Years",
+  salary: "Not Mentioned",
+  vacancies: "1",
+  published: "2026-07-30",
+  end: "2026-08-14",
+
+  posts: "Data Harmonization and Reconciliation Analyst (1 Post)",
+
+  degree: "Bachelor's / Master's (16 Years Education)",
+
+  education: `
+• Bachelor's (16 Years Education)
+• Master's (16 Years Education)
+`,
+
+  degreeArea: `
+• Advanced Computing
+• Computational Science
+• Computer Engineering
+• Computer Networks
+• Information Engineering
+• Information Technology
+• Data Science
+• Data Analytics
+• Management Information System (MIS)
+• Management & Technology
+`,
+
+  description: `
+Punjab Information Technology Board (PITB) is hiring a Data Harmonization and Reconciliation Analyst on a contract basis.
+
+The selected candidate will work on SME data harmonization, reconciliation, validation, quality assurance, and coordination with government departments and partner organizations to improve data consistency and accuracy.
+
+Responsibilities include collecting and harmonizing datasets, identifying duplicates and discrepancies, validating information, ensuring data quality standards, and maintaining dynamic data assurance processes.
+
+Applicants having Bachelor's or Master's (16 Years Education) in the relevant disciplines with at least 2 years of experience are encouraged to apply.
+`,
+
+  positions: [
+    {
+      title: "Data Harmonization and Reconciliation Analyst",
+      qualification: "Bachelor's / Master's (16 Years Education)",
+      experience: "2 Years",
+      age: "24-45 Years",
+      gender: "Male & Female",
+      location: "Lahore"
+    }
+  ],
+
+  apply: "https://pakjobshunt.github.io"
+},
+ {
+  id: 501,
+  title: "Shrimp Farms & Hatchery Interns",
+  company: "Fisheries Department Punjab",
+  category: "Government",
+  city: "Muzaffargarh, Punjab",
+  type: "Paid Internship",
+
+  qualification: "BS (Hons) / Master's (16 Years Education)",
+  experience: "Fresh Candidates Eligible",
+  salary: "Rs. 10,000 Per Month",
+  vacancies: "26",
+  published: "2026-07-24",
+  end: "2026-08-07",
+
+  posts: "Shrimp Farms & Hatchery Interns (26 Posts)",
+
+  degree: "Bachelor's / Master's (16 Years Education)",
+
+  education: `
+• BS (Hons) Zoology
+• BS (Hons) Fisheries
+• Master's Degree (16 Years Education)
+`,
+
+  degreeArea: `
+• Zoology
+• Fisheries
+`,
+
+  description: `
+Punjab Fisheries Department has announced 26 Paid Internship opportunities under the Establishment of Shrimp Estate with Value Chain at Rakh Ali Wali, Muzaffargarh.
+
+Selected interns will receive a monthly stipend of Rs.10,000 and will gain practical experience in shrimp farming, hatchery management, fisheries production, aquatic research, and field operations.
+
+Fresh graduates are encouraged to apply.
+`,
+
+  positions: [
+    {
+      title: "Shrimp Farms & Hatchery Intern",
+      qualification: "BS (Hons) Zoology / Fisheries or Master's (16 Years Education)",
+      experience: "Fresh Candidates",
+      age: "18-30 Years",
+      gender: "Male & Female",
+      division: "First Division (60% Marks & Above)"
+    }
+  ],
+
+  apply: "https://pakjobshunt.github.io"
+},
+ {
+  id: 301,
+  title: "Junior Clerk (Revenue Department)",
+  company: "Revenue Department, Commissioner Office Bahawalpur Division",
+  category: "Government",
+  city: "Bahawalpur",
+  type: "Full Time",
+  qualification: "Intermediate (2nd Division) from a recognized Board",
+  experience: "Fresh candidates can apply",
+  salary: "BS-11",
+  vacancies: "8",
+  published: "2026-07-30",
+  end: "2026-08-05",
+
+  posts: "Junior Clerk",
+  degree: "Intermediate (2nd Division)",
+  education: "12 Years Education",
+  degreeArea: "Intermediate / FA / FSc / ICS / I.Com",
+
+  description: `
+<b>Junior Clerk (BS-11)</b><br><br>
+
+<b>Department:</b> Revenue Department, Commissioner Office Bahawalpur Division (BOR)<br>
+<b>Advertisement No:</b> 07/2026<br>
+<b>Case No:</b> 28J2026<br><br>
+
+<b>Total Vacancies:</b> 8<br>
+• Women Quota: 2<br>
+• Minority Quota: 0<br>
+• Special Persons: 0<br>
+• Special Zone Quota: 0<br>
+• Other Quota: 3<br><br>
+
+<b>Qualification:</b><br>
+Intermediate (Second Division) from a recognized Board.<br><br>
+
+<b>Required Skills:</b><br>
+• Typing Speed of 25 Words Per Minute in English.<br>
+• Proficient in Microsoft Office or any compatible Office Application.<br>
+• Candidate must demonstrate computer proficiency.<br><br>
+
+<b>Experience:</b><br>
+Fresh candidates are eligible to apply.<br><br>
+
+<b>Pay Scale:</b><br>
+BS-11<br><br>
+
+<b>Age Limit:</b><br>
+Male: 18 to 25 years + 5 years general age relaxation.<br>
+Female: 18 to 25 years + 8 years general age relaxation.<br>
+Transgender: Age as per CNIC.<br><br>
+
+<b>Eligibility:</b><br>
+Male, Female & Transgender.<br><br>
+
+<b>Place of Posting:</b><br>
+Commissioner Office Bahawalpur Division.<br><br>
+
+<b>Application Fee:</b><br>
+Rs.600<br><br>
+
+<b>Last Date to Apply:</b><br>
+05 August 2026.
+`,
+
+  apply: "https://pakjobshunt.com"
+},
+ {
+  id: 401,
+  title: "Municipal Officer (Infrastructure) / DMO (Infra) / AMO / Assistant Directors (Land Services)",
+  company: "Punjab Public Service Commission (PPSC)",
+  category: "Government",
+  city: "Anywhere in Punjab",
+  type: "Full Time",
+  qualification: "Matric + Intermediate + B.Sc Civil Engineering OR B.E Civil Engineering (HEC & PEC Recognized)",
+  experience: "03 Years",
+  salary: "BS-17",
+  vacancies: "05",
+  published: "2026-08-01",
+  end: "2026-08-05",
+
+  posts: `
+• Municipal Officer (Infrastructure)
+• DMO (Infrastructure)
+• AMO
+• Assistant Director (Land Services)
+• Assistant Engineer
+`,
+
+  degree: "BS-17",
+
+  education: `
+• Matric
+• Intermediate
+• B.Sc Civil Engineering
+OR
+• Matric
+• Intermediate
+• B.E Civil Engineering
+`,
+
+  degreeArea: `
+• Civil Engineering
+• Pakistan Engineering Council (PEC) Registered
+• HEC Recognized University
+`,
+
+  description: `
+Punjab Public Service Commission (PPSC) has announced Government Jobs under the Local Government & Community Development Department.
+
+Post Details:
+• Total Posts: 05
+• Department: Local Government & Community Development Department
+• Advertisement No: 07/2026
+• Case No: 27J2026
+
+Eligibility:
+• Male, Female & Transgender
+• Age: Male 18-60 Years | Female 18-60 Years
+• Place of Posting: Anywhere in Punjab
+• Pay Scale: BS-17
+
+Qualification:
+• Matric + Intermediate + B.Sc Civil Engineering
+OR
+• Matric + Intermediate + B.E Civil Engineering
+• Degree must be HEC Recognized.
+• Applicant must be registered with Pakistan Engineering Council (PEC).
+
+Experience:
+• Minimum 03 years relevant experience in the functional unit.
+
+Important Note:
+• Service Certificate from the Competent Authority is mandatory.
+• Candidates must fulfill all PPSC eligibility requirements before applying.
+`,
+
+  apply: "https://pakjobshunt.github.io/PakJobsHunt/"
+},
+ {
+  id: 108,
+  title: "Programme Manager (Networks)",
+  company: "Punjab Masstransit Authority (PMA)",
+  category: "Government",
+  city: "Lahore",
+  type: "Contract",
+  qualification: "MS / MPhil (18 Years Education)",
+  experience: "5 Years",
+  salary: "As Per Punjab Government Policy",
+  vacancies: "1",
+  published: "2026-07-30",
+  end: "2026-08-14",
+
+  posts: "Programme Manager (Networks)",
+
+  degree: "MS / MPhil (18 Years Education)",
+
+  education: "18 Years Education (HEC Recognized)",
+
+  degreeArea: "Advanced Computing, Business Administration, Computational Science, Computer Engineering/Sciences, Computer Networks, Development Studies, Economics, Electrical Engineering/Sciences, Electronics Engineering/Sciences, Information Engineering/Sciences, Information Technology, International Relations, Management, Project Management, Public Administration, Public Policy, Statistics, Telecommunication Engineering/Sciences, Data Science, Electrical Engineering, Software Engineering, Management Sciences, Administrative Sciences, Data Analytics, Business & Management Sciences, Management Information System, Public Relations, Management & Technology",
+
+  description: `
+<b>Job Description</b><br><br>
+
+• Manage IT infrastructure including LAN/WAN setup and security.<br>
+• Ensure high availability of network services and system integrity.<br>
+• Oversee configuration and maintenance of servers, firewalls, and routers.<br>
+• Implement and monitor data backup and disaster recovery plans.<br>
+• Supervise IT staff and coordinate with vendors for technical procurements.<br>
+• Develop strategies to optimize network performance and cybersecurity.<br><br>
+
+<b>Key Information</b><br><br>
+
+<b>Division:</b> Lahore<br>
+<b>District:</b> Lahore<br>
+<b>Industry:</b> Information Technology<br>
+<b>Total Posts:</b> 1<br>
+<b>Employment Status:</b> Contract<br>
+<b>Role:</b> Programme Manager (Networks)<br>
+<b>Experience:</b> 5 Years<br>
+<b>Gender:</b> Both Male & Female<br>
+<b>Age Limit:</b> 27–45 Years<br>
+<b>Application Deadline:</b> 14 August 2026
+`,
+
+  apply: "https://pakjobshunt.com"
+},
+ {
+id: 110,
+  title: "Data Harmonization and Reconciliation Analyst",
+  company: "Punjab Masstransit Authority (PMA)",
+  category: "Government",
+  city: "Lahore",
+  type: "Contract",
+
+  qualification: "Master's / Bachelor's (Hons) - 16 Years Education",
+  experience: "2 Years",
+  salary: "As Per PMA Policy",
+  vacancies: "1",
+  published: "2026-07-30",
+  end: "2026-08-14",
+
+  posts: "Data Harmonization and Reconciliation Analyst",
+
+  degree: "Master's / Bachelor's (Hons) (16 Years)",
+  education: "16 Years Education",
+
+  degreeArea: `
+• Advanced Computing
+• Computational Science
+• Computer Engineering / Sciences
+• Computer Networks
+• Information Engineering / Sciences
+• Information Technology
+• Data Science
+• Data Analytics
+• Management Information System
+• Management and Technology
+`,
+
+  description: `
+Job Description:
+• Liaising with federal and provincial government departments, academia, industry and development sector organizations for SME-related data gathering, assimilation and reconciliation.
+
+• Collect, consolidate and harmonize SME-related data from multiple sources including surveys, registrations, government databases and partner organizations while ensuring consistency in data formats, classifications and standards.
+
+• Perform data reconciliation and validation to identify discrepancies, duplicates and missing information.
+
+• Coordinate with relevant stakeholders to ensure data accuracy and integrity.
+
+• Develop and maintain dynamic data quality assurance processes.
+
+• Perform any other relevant task assigned by the Authority.
+
+Age Limit:
+24 to 45 Years
+
+Gender:
+Male & Female
+
+Employment Status:
+Contract
+
+Project:
+Punjab Masstransit Authority
+
+Division:
+Lahore
+
+District:
+Lahore
+`,
+
+  apply: "https://pakjobshunt.com"
+},
+ {
+  id: 108,
+  category: "Government",
+  title: "Awareness and Outreach Specialist",
+  company: "Punjab Masstransit Authority (PMA)",
+  city: "Lahore",
+  type: "Contract",
+  qualification: "Bachelor's / Master's (16 Years Education)",
+  experience: "Minimum 2 Years",
+  salary: "As Per PMA Rules",
+  vacancies: "1",
+  posts: "1 Post",
+
+  degree: "Bachelor's / Master's (16 Years Education)",
+
+  education: "Minimum 16 Years Education (HEC Recognized University)",
+
+  degreeArea: "Business Administration, Development Studies, Economics, International Relations, Management, Project Management, Public Administration, Public Policy, Management Sciences, Administrative Sciences, Management Information Systems (MIS), Public Relations or equivalent discipline",
+
+  published: "2026-07-30",
+
+  end: "2026-08-14",
+
+  description: `
+Punjab Masstransit Authority (PMA) invites applications for the post of Awareness and Outreach Specialist on a contract basis.
+
+Key Responsibilities:
+• Collect, categorize and verify SME sector data.
+• Identify and approach unregistered SMEs for registration.
+• Achieve monthly, quarterly and annual registration targets.
+• Coordinate with Chambers of Commerce, trade bodies and business associations.
+• Improve SME database coverage through field outreach.
+• Analyze missing data and prepare reports.
+• Research national and international best practices.
+• Perform any additional duties assigned by the Authority.
+
+Eligibility:
+• Bachelor's / Master's (16 Years Education) from an HEC recognized university.
+• Minimum 2 years of relevant professional experience.
+• Excellent communication, coordination and reporting skills.
+
+Age Limit:
+24 to 45 Years
+
+Gender:
+Male & Female
+
+Employment Type:
+Contract
+`,
+
+  apply: "https://jobs.punjab.gov.pk"
+},
+ {
+id:1105,
+title:"Deputy Director IT – Pakistan Metro Bus System",
+company:"Punjab Masstransit Authority (PMA)",
+category:"Government",
+city:"Rawalpindi",
+type:"Contract",
+qualification:"Bachelor's/Master's Degree (16 Years Education) in Information Technology, Computer Science or Computer Engineering (HEC Recognized)",
+experience:"Minimum 8 Years Relevant Experience",
+salary:"As Per Punjab Government / PMA Policy",
+vacancies:1,
+published:"2026-07-31",
+end:"2026-08-15",
+description:"Punjab Masstransit Authority (PMA) invites applications for the post of Deputy Director IT – Pakistan Metro Bus System (PMBS). The selected candidate will lead IT infrastructure, software systems, procurement, cybersecurity, vendor management, digital transformation projects, and IT operations for the Metro Bus System. Candidates must possess strong technical, managerial, procurement and project management skills with experience in large-scale IT infrastructure deployments.",
+positions:[
+{
+title:"Deputy Director IT – Pakistan Metro Bus System",
+qualification:"Bachelor's/Master's Degree (16 Years Education) in Information Technology, Computer Science or Computer Engineering (HEC Recognized)",
+experience:"Minimum 8 Years Relevant Experience",
+age:"25–45 Years",
+gender:"Male & Female",
+skills:[
+"IT Infrastructure Management",
+"Computer Networks",
+"Server Administration",
+"Cyber Security",
+"Vendor Management",
+"IT Procurement",
+"PPRA Rules",
+"Project Management",
+"Software Development Management",
+"Database Administration",
+"CCTV & Surveillance Systems",
+"Technical Documentation",
+"Leadership & Team Management",
+"Problem Solving",
+"Communication Skills"
+],
+responsibilities:[
+"Manage all IT services for Pakistan Metro Bus System.",
+"Monitor AFC-BSS, CCTV and IT infrastructure operations.",
+"Ensure uninterrupted IT service delivery.",
+"Prepare technical specifications, RFPs and tender documents.",
+"Handle procurement according to PPRA and PMA rules.",
+"Evaluate vendor bids and monitor vendor performance.",
+"Manage end-to-end IT procurement processes.",
+"Coordinate software development and system integrations.",
+"Implement IT policies, SOPs and governance frameworks.",
+"Supervise IT staff at PMBS locations.",
+"Coordinate with PMA Head Office and external stakeholders.",
+"Manage software licenses, hardware and maintenance contracts.",
+"Monitor implementation of IT projects and upgrades.",
+"Maintain IT inventory and technical documentation.",
+"Support audits and ensure regulatory compliance.",
+"Perform any additional duties assigned by management."
+]
+}
+],
+apply:"https://jobs.punjab.gov.pk/"
+},
+{
+id:1104,
+title:"Director Operations – Orange Line Metro Rail Transit System",
+company:"Punjab Masstransit Authority (PMA)",
+category:"Government",
+city:"Lahore",
+type:"Contract",
+qualification:"Masters in Transportation Engineering OR Masters in Civil Engineering with specialization/coursework in Transportation Engineering (HEC Recognized)",
+experience:"Minimum 8 Years Relevant Experience",
+salary:"As Per Punjab Government / PMA Policy",
+vacancies:1,
+published:"2026-07-31",
+end:"2026-08-15",
+description:"Punjab Masstransit Authority (PMA) invites applications for the position of Director Operations – Orange Line Metro Rail Transit System (OLMRTS). The successful candidate will be responsible for managing the daily operations of the Orange Line Metro, ensuring passenger safety, operational efficiency, technical performance, maintenance coordination, staff supervision, vendor management, emergency response planning, procurement support, performance monitoring, system upgrades, and implementation of departmental operational strategies.",
+positions:[
+{
+title:"Director Operations – Orange Line Metro Rail Transit System",
+qualification:"Masters in Transportation Engineering OR Masters in Civil Engineering with Transportation Engineering (HEC Recognized)",
+experience:"Minimum 8 Years Relevant Experience",
+age:"25–45 Years",
+gender:"Male & Female",
+skills:[
+"Leadership & Team Management",
+"Public Transport Operations",
+"Rail Operations Management",
+"Transportation Engineering",
+"Civil Engineering",
+"Project Management",
+"Vendor Coordination",
+"Maintenance Planning",
+"Emergency Response Planning",
+"Performance Monitoring"
+],
+responsibilities:[
+"Manage day-to-day Orange Line Metro operations.",
+"Ensure passenger safety and operational efficiency.",
+"Monitor technical performance of train operations.",
+"Coordinate with engineering, operations and external stakeholders.",
+"Supervise maintenance activities and operational staff.",
+"Implement safety procedures and emergency response plans.",
+"Inspect systems, procedures and staff performance.",
+"Prepare operational and incident reports.",
+"Support procurement and contract management activities.",
+"Participate in technical reviews and infrastructure improvements.",
+"Monitor vendor performance and technical services.",
+"Recommend productivity and operational improvements.",
+"Perform any additional duties assigned by senior management."
+]
+}
+],
+apply:"https://jobs.punjab.gov.pk/"
+},
+ {
+id:1103,
+title:"Driver",
+company:"Punjab Masstransit Authority",
+category:"Government",
+city:"Lahore",
+type:"Contract",
+qualification:"Middle Pass",
+experience:"Minimum 4 Years with Valid LTV Driving License approved by Traffic Police Punjab",
+salary:"As Per Punjab Government Policy",
+vacancies:5,
+published:"2026-07-31",
+end:"2026-08-15",
+positions:[
+{
+title:"Driver",
+qualification:"Middle Pass",
+experience:"Minimum 4 Years",
+skills:"Valid LTV Driving License"
+}
+],
+description:"Punjab Masstransit Authority invites applications for the post of Driver on a contract basis. Candidates must have at least four years of driving experience along with a valid LTV driving license approved by the Traffic Police Punjab. The selected candidate will be responsible for transporting officers and official documents, maintaining the assigned vehicle, ensuring road safety, keeping maintenance records, and performing other official duties assigned by the department.",
+apply:"https://jobs.punjab.gov.pk/"
+}, 
+  {id:1004,title:"Content Writer Internship (Hybrid)",company:"TechXaro Pvt Ltd",category:"Private",city:"Lahore",type:"Internship",qualification:"Strong writing skills, creativity, keen eye for detail",experience:"Fresh / entry-level",salary:"PKR 10,000 – 20,000",vacancies:1,published:"2026-07-28",end:"2026-08-10",description:"TechXaro Pvt Ltd is hiring a Content Writer Intern for a hybrid internship in Lahore. Candidates will work on SEO content, blogs, website copy, and digital marketing projects while gaining practical industry experience.",apply:"https://techxaro.com/careers/"},
+  {id:1002,title:"Summer Internship Program 2026",company:"Sehat Kahani",category:"Private",city:"Karachi",type:"Internship",qualification:"Students / Fresh graduates",experience:"Fresh / entry-level",salary:"Not specified",vacancies:"Multiple",published:"2026-07-28",end:"2026-08-10",description:"Sehat Kahani is inviting applications for its Summer Internship Program 2026. Interns will work on real-world healthcare technology projects, develop practical skills, and gain valuable industry experience.",apply:"https://www.sehatkahani.com/careers"},
+  {id:1001,title:"Internship Program 2026 (Round 2)",company:"DAIM Pakistan",category:"Private",city:"Lahore",type:"Internship",qualification:"Students / Fresh graduates — Marketing, Design, Production, Content Creation",experience:"Fresh / entry-level",salary:"Not specified",vacancies:"Multiple",published:"2026-07-28",end:"2026-07-31",description:"DAIM Pakistan is accepting applications for Round 2 of its Internship Program 2026. Interns will gain hands-on experience working on real projects in marketing, design, production, and content creation while collaborating with a creative team.",apply:"https://www.linkedin.com/company/daim-pakistan"},
+  {id:901,title:"Data Engineer / Data Analyst / Cyber Security Analyst / Network Manager / Project Support Officer / HR & Admin Manager (Multiple Posts)",company:"National IT Board (NITB)",category:"IT",city:"Islamabad",type:"Full-time",qualification:"Bachelor's, BS, Master's, MS in Computer Science, IT, Software Engineering, Cyber Security or related field",experience:"As per post requirement",salary:"Not specified",vacancies:"Multiple",published:"2026-07-26",end:"2026-07-29",positions:[
+{
+title:"Data Engineer",
+qualification:"BS/BSCS/Software Engineering",
+experience:"As per post requirement"
+},
+{
+title:"Data Analyst",
+qualification:"BS Statistics / Computer Science",
+experience:"As per post requirement"
+},
+{
+title:"Cyber Security Analyst",
+qualification:"BS Cyber Security / IT",
+experience:"As per post requirement"
+},
+{
+title:"Network Manager",
+qualification:"BS Computer Science / Networking",
+experience:"As per post requirement"
+},
+{
+title:"Project Support Officer",
+qualification:"Bachelor's / Master's",
+experience:"As per post requirement"
+},
+{
+title:"HR & Admin Manager",
+qualification:"MBA / BBA / HR",
+experience:"As per post requirement"
+}
+],description:"National IT Board (NITB) has announced multiple IT vacancies including Data Engineer, Data Analyst, Cyber Security Analyst, Network Manager, Project Support Officer, and HR & Admin Manager. Eligible male and female candidates meeting the required qualifications can apply online through the National Jobs Portal before the closing date.",apply:"https://njp.gov.pk"},
+  {
+id:802,
+title:"NADRA Jobs 2026",
+company:"National Database & Registration Authority (NADRA)",
+category:"Government",
+city:"Pakistan",
+type:"Full-time / Contract",
+qualification:"Middle, Matric, Intermediate, Bachelor's, BS, Master's, MS (Varies by Position)",
+experience:"Fresh & Experienced Candidates (Post-wise)",
+salary:"As per NADRA Rules",
+vacancies:"Multiple",
+published:"2026-07-26",
+end:"Check Latest Advertisement",
+positions:[
+{
+title:"Junior Executive (Data Entry Operator)",
+qualification:"Intermediate or Equivalent",
+experience:"Fresh / Relevant experience preferred"
+},
+{
+title:"Assistant Director",
+qualification:"Bachelor's / Master's (Relevant Field)",
+experience:"Relevant experience required"
+},
+{
+title:"Deputy Assistant Director",
+qualification:"Bachelor's / Master's",
+experience:"Relevant experience required"
+},
+{
+title:"System Administrator",
+qualification:"BS Computer Science / IT / Software Engineering",
+experience:"Relevant experience"
+},
+{
+title:"Network Engineer",
+qualification:"BS Computer Science / IT / Telecom",
+experience:"Relevant experience"
+},
+{
+title:"Database Administrator",
+qualification:"BS Computer Science / IT",
+experience:"Relevant experience"
+},
+{
+title:"Security Guard",
+qualification:"Middle / Matric",
+experience:"As per advertisement"
+},
+{
+title:"Driver",
+qualification:"Middle / Matric + Valid Driving License",
+experience:"Relevant driving experience"
+},
+{
+title:"Naib Qasid",
+qualification:"Middle",
+experience:"Fresh / Relevant"
+},
+{
+title:"Office Boy",
+qualification:"Middle",
+experience:"Fresh"
+},
+{
+title:"Sweeper / Sanitary Worker",
+qualification:"Primary / Middle",
+experience:"Fresh"
+}
+],
+description:"NADRA regularly announces career opportunities across Pakistan for technical, administrative, operations, security, and support staff. Eligibility criteria, qualifications, experience requirements, and vacancies vary by position and advertisement. Interested candidates should review the latest official recruitment notice and submit their applications online before the respective closing date.",
+apply:"https://careers.nadra.gov.pk/JobListing"
+},
+  {id:407,title:"Assistant Manager Procurement (Services & Indirect Material)",company:"Haidri Beverages Pvt. Ltd. (Pepsi Bottling)",category:"Private",city:"Islamabad",type:"Full-time",qualification:"BBA, Supply Chain, Finance, MBA",experience:"3-5 Years (Beverage Industry)",salary:"Not specified",vacancies:1,published:"2026-07-28",end:"2026-08-10",description:"Haidri Beverages Pvt. Ltd. is hiring an Assistant Manager Procurement in Islamabad. Candidates must have 3-5 years experience in beverage/FMCG industry with SAP knowledge. Visit the official careers page or send resume to careers@pepsiisb.com with subject 'Assistant Manager Procurement'.",apply:"https://pepsiislamabad.com/join-our-team-pepsi"},
+  {id:801,title:"Multiple Positions (BPS-08 to BPS-15)",company:"General Headquarters (GHQ), Rawalpindi",category:"Government",city:"Rawalpindi",type:"Full-time",qualification:"Matric to Graduation with relevant experience",experience:"As per post requirement",salary:"As per BPS scale",vacancies:83,published:"2026-07-26",end:"2026-08-10",description:"General Headquarters (GHQ), Rawalpindi has announced 83 vacancies (1st Advertisement) across BPS-08 to BPS-15 scales. Age limit: 18 to 35 years (post-wise). Apply online through the official website before the deadline.",apply:"https://amdte-rect.gov.pk"},
+  {id:707,title:"Multiple Positions (Master's Level)",company:"Pakistan Civil Aviation Authority (PCAA)",category:"Government",city:"Karachi",type:"Full-time",qualification:"Master's degree",experience:"As per post requirement",salary:"Not specified",vacancies:"Multiple",published:"2026-07-25",end:"2026-08-09",description:"Pakistan Civil Aviation Authority (PCAA) has announced multiple government job opportunities for Master's degree holders. Positions based in Karachi, Sindh. Interested candidates should review the complete eligibility criteria on the official advertisement before applying.",apply:"https://www.pcaa.gov.pk"},
+  {id:706,title:"Punjab Shrimp Internship Program 2026-27 (75 Posts)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"BS / MS / Bachelor's / Master's (varies by post)",experience:"Fresh / entry-level",salary:"Not specified",vacancies:75,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has launched the Punjab Shrimp Internship Program 2026-27, offering 75 internship positions in Muzaffargarh for a duration of 1 year. Open to candidates with BS, MS, Bachelor's, or Master's qualifications. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:705,title:"Microbiologist Interns (Paid Internship)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"Master's / Bachelor's (Hons) 16 years — Microbiology, First Division (60% and above)",experience:"Fresh / entry-level",salary:"Up to PKR 100,000/month",vacancies:8,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has announced 8 paid internship positions for Microbiologist Interns under the 'Establishment of Shrimp Estate with Value Chain at 58NB, Sargodha' project. Open to both male and female candidates, age 18-30. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:704,title:"Pathologist Interns (Paid Internship)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"Master's / Bachelor's (Hons) 16 years — Microbiology, First Division (60% and above)",experience:"Fresh / entry-level",salary:"Up to PKR 100,000/month",vacancies:8,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has announced 8 paid internship positions for Pathologist Interns under the 'Establishment of Shrimp Estate with Value Chain at 58NB, Sargodha' project. Open to both male and female candidates, age 18-30. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+   {id:703,title:"BCC Officer (Behaviour Change Communication)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Faisalabad",type:"Contract",qualification:"Bachelor's in Sociology / Mass Communications / Humanities & Arts / Commerce / Social Sciences",experience:"3 years in social safeguards, community mobilization, communications",salary:"PKR 205,000 – 210,000/month",vacancies:1,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 1 vacancy for BCC Officer under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Chakwal, D.G. Khan, Faisalabad, Multan, and Sargodha divisions. Level: PPS-07. Male candidates, age 18-60. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:702,title:"Associate Engineer (Water & Sewerage)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Bahawalpur",type:"Contract",qualification:"Diploma in Civil Engineering (DAE / B.Tech)",experience:"3 years relevant work in civil engineering, water supply sector",salary:"PKR 130,000 – 140,000/month",vacancies:5,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 5 vacancies for Associate Engineer (Water & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Bahawalpur, Chakwal, Chiniot, D.G. Khan, Jhang, Lodhran, Multan, Pakpattan, Rajanpur, and Sargodha districts. Level: PPS-06. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:701,title:"Assistant Manager (Water Supply & Sewerage)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Multan",type:"Contract",qualification:"BSc in Civil / Public Health Engineering",experience:"3 years relevant experience in civil engineering, infrastructure, water supply sector",salary:"PKR 205,000 – 210,000/month",vacancies:14,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 14 vacancies for Assistant Manager (Water Supply & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Bhakkar, Chiniot, D.G. Khan, Jhang, Khushab, Multan, Muzaffargarh, Pakpattan, Rajanpur, and Sargodha districts. Level: PPS-07. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:501,title:"Deputy Manager (Infrastructure & Services)",company:"Punjab Rural Municipal Services Company (PRMSC)",category:"Government",city:"Lahore",type:"Contract",qualification:"As per official criteria — see advertisement",experience:"As per post requirement",salary:"Not specified",vacancies:1,published:"2026-07-25",end:"2026-08-07",description:"Punjab Rural Municipal Services Company (PRMSC) has announced the position of Deputy Manager (Infrastructure & Services) under the Punjab Rural Sustainable Water Supply and Sanitation Project, Punjab province.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:502,title:"Associate Engineer (Water & Sewerage)",company:"Punjab Rural Municipal Services Company (PRMSC)",category:"Government",city:"Lahore",type:"Contract",qualification:"As per official criteria — see advertisement",experience:"As per post requirement",salary:"Not specified",vacancies:1,published:"2026-07-25",end:"2026-08-07",description:"Punjab Rural Municipal Services Company (PRMSC) has announced the position of Associate Engineer (Water & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project, Punjab province.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:503,title:"Assistant Manager (Water Supply & Sewerage)",company:"Punjab Rural Municipal Services Company (PRMSC)",category:"Government",city:"Lahore",type:"Contract",qualification:"As per official criteria — see advertisement",experience:"As per post requirement",salary:"Not specified",vacancies:1,published:"2026-07-25",end:"2026-08-07",description:"Punjab Rural Municipal Services Company (PRMSC) has announced the position of Assistant Manager (Water Supply & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project, Punjab province.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:504,title:"BCC Officer",company:"Punjab Rural Municipal Services Company (PRMSC)",category:"Government",city:"Lahore",type:"Contract",qualification:"As per official criteria — see advertisement",experience:"As per post requirement",salary:"Not specified",vacancies:1,published:"2026-07-25",end:"2026-08-07",description:"Punjab Rural Municipal Services Company (PRMSC) has announced the position of BCC Officer (Behaviour Change Communication) under the Punjab Rural Sustainable Water Supply and Sanitation Project, Punjab province.",apply:"https://jobs.punjab.gov.pk/"},
+  {id:1,title:"Assistant Manager – Operations",company:"Metro Bank of Pakistan",category:"Banking",city:"Karachi",type:"Full-time",qualification:"MBA / BBA (16 years education)",experience:"2–4 years",salary:"PKR 90,000 – 120,000",vacancies:3,published:"2026-07-10",end:"2026-08-05",description:"Metro Bank of Pakistan is looking for a detail-oriented Assistant Manager to oversee daily branch operations, ensure compliance with SBP regulations, and lead a small team of tellers and CSOs.",apply:"mailto:careers@metrobank.example.com"},
+  {id:2,title:"Software Engineer (React / Node.js)",company:"TechNova Solutions",category:"IT",city:"Lahore",type:"Full-time",qualification:"BS Computer Science",experience:"1–3 years",salary:"PKR 120,000 – 180,000",vacancies:5,published:"2026-07-14",end:"2026-07-31",description:"TechNova Solutions is expanding its product engineering team. We're hiring engineers comfortable across the stack, building REST APIs in Node.js and crafting responsive interfaces in React.",apply:"https://technova.example.com/careers"},
+  {id:3,title:"Lecturer – Mathematics",company:"Federal Board of Education",category:"Government",city:"Islamabad",type:"Full-time",qualification:"MPhil Mathematics",experience:"3+ years teaching",salary:"As per government scale (BPS-17)",vacancies:8,published:"2026-06-28",end:"2026-07-25",description:"The Federal Board of Education invites applications for the post of Lecturer in Mathematics at government degree colleges. Selection will be made through written test and interview as per official recruitment policy.",apply:"https://fbe.example.gov.pk/jobs"},
+  {id:4,title:"Site Civil Engineer",company:"Al-Falah Construction Co.",category:"Engineering",city:"Faisalabad",type:"Contract",qualification:"BSc Civil Engineering, PEC Registered",experience:"2+ years",salary:"PKR 100,000 – 140,000",vacancies:2,published:"2026-07-08",end:"2026-07-22",description:"Al-Falah Construction Company is hiring Site Civil Engineers for its residential housing project. Responsibilities include site supervision, quality control, planning and execution of construction activities.",apply:"mailto:hr@alfalahconstruction.example.com"},
+  {id:5,title:"Staff Nurse",company:"Al-Shifa General Hospital",category:"Medical",city:"Rawalpindi",type:"Full-time",qualification:"BSN / Diploma in Nursing",experience:"1+ years",salary:"PKR 60,000 – 80,000",vacancies:10,published:"2026-07-15",end:"2026-08-10",description:"Al-Shifa General Hospital is recruiting registered Staff Nurses for Emergency, ICU and General Ward departments. Candidates must possess valid nursing qualifications and relevant clinical experience.",apply:"mailto:jobs@alshifahospital.example.com"},
+  {id:109,title:"Fisheries & Coastal Development Department Jobs",company:"Fisheries & Coastal Development Department",category:"Government",city:"Quetta",type:"Full-time",qualification:"Middle, Matric",experience:"As per department criteria",salary:"Not specified",vacancies:"Multiple",published:"2026-07-24",end:"2026-08-15",description:"Fisheries & Coastal Development Department, Balochistan has announced multiple government vacancies for eligible candidates. Applications must be submitted physically along with the required documents before the closing date.",apply:"#"},
+  {id:110,title:"Injection Molding Supervisor & Operator",company:"Plastic Factory",category:"Private",city:"Karachi",type:"Full-time",qualification:"Matric, Intermediate, Bachelor, Master",experience:"Fresh / Experienced",salary:"As per company policy",vacancies:1,published:"2026-07-23",end:"2026-08-08",description:"A leading plastic manufacturing company in Karachi is hiring Injection Molding Supervisors and Operators. Candidates with manufacturing experience will be preferred.",apply:"https://www.jobz.pk"},
+  {id:111,title:"Executive Officer – Procurement",company:"Punjab Safe Cities Authority (PSCA)",category:"Government",city:"Lahore",type:"Full-time",qualification:"Intermediate, Bachelor, Master",experience:"As per post requirement",salary:"PKR 100,000 – 323,800",vacancies:"Multiple",published:"2026-07-19",end:"2026-07-31",description:"Punjab Safe Cities Authority (PSCA) has announced multiple contract-based vacancies including Executive Officer – Procurement. Eligible candidates should apply online before the closing date.",apply:"https://psca.gop.pk/career/"},
+  {id:401,title:"Project Manager / Site Engineer / CCTV Technician (Multiple Posts)",company:"Private Company",category:"Private",city:"Karachi",type:"Full-time",qualification:"Intermediate, Bachelor, Master, MBA, BA, BBA, MS (varies by post)",experience:"As per post requirement",salary:"Not specified",vacancies:"Multiple",published:"2026-07-20",end:"2026-07-30",description:"A private company in Karachi has announced multiple management and technical positions including Project Manager, Site Engineer, CCTV Technician, Project Coordinator, ELV Engineer, Liaison Officer, Technical Manager, and Business Development Manager. Apply as per details in the official job advertisement.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+  {id:402,title:"Accountant (Finance Department)",company:"DayZee Farms",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's/Master's in Accounting or Finance",experience:"1-3 years preferred",salary:"Not specified",vacancies:1,published:"2026-07-20",end:"2026-08-05",description:"DayZee Farms, a leading agribusiness company, is hiring an Accountant for its Finance Department. Candidates with accounting or finance qualifications and relevant experience are encouraged to apply.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+  {id:403,title:"Personal Assistant to Director / HR Manager",company:"NTIS PAK - Natrinspa Immigrations Services (Private) Limited",category:"Private",city:"Islamabad",type:"Full-time",qualification:"Bachelor's degree, HR/Admin background preferred",experience:"1-2 years",salary:"Not specified",vacancies:1,published:"2026-07-18",end:"2026-08-01",description:"NTIS PAK is hiring a Personal Assistant to the Director / HR Manager. Candidates with HR, administration and office management experience are encouraged to apply.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"},
+  {id:404,title:"Study Visa Consultant",company:"Diamond Visa Solutions Pvt Ltd",category:"Private",city:"Lahore",type:"Full-time",qualification:"Bachelor's degree, good communication skills",experience:"Fresh / 1 year",salary:"Not specified",vacancies:2,published:"2026-07-19",end:"2026-08-05",description:"Diamond Visa Solutions Pvt Ltd is hiring Study Visa Consultants for its Lahore office. Candidates with good communication skills and knowledge of study visa processing are encouraged to apply.",apply:"https://pk.indeed.com/jobs?q=&l=Pakistan"}
+];
+
+let currentPage = 1;
+const jobsPerPage = 6;
+let currentJobsList = [...jobs];
+
+function renderJobs(jobsData) {
+    const box = document.getElementById("jobs");
+
+    try {
+        const firebaseJobs = jobsData && jobsData.length ? jobsData : currentJobsList;
+
+        currentJobsList = firebaseJobs;
+
+        document.getElementById("totalJobs").innerText = firebaseJobs.length;
+
+        document.getElementById("govJobs").innerText =
+            firebaseJobs.filter(j => j.category === "Government").length;
+
+        document.getElementById("privateJobs").innerText =
+            firebaseJobs.filter(j => j.category === "Private").length;
+
+        document.getElementById("itJobs").innerText =
+            firebaseJobs.filter(j => j.category === "IT").length;
+
+        firebaseJobs.sort((a, b) =>
+            new Date(b.published) - new Date(a.published)
+        );
+
+        box.innerHTML = "";
+
+        if (firebaseJobs.length === 0) {
+            box.innerHTML = "<p>Jobs loading...</p>";
+            return;
+        }
+
+        firebaseJobs.forEach(j => {
+            box.innerHTML += `
+                <div class="job">
+                    <span class="badge">${j.category}</span>
+
+                    <h3>${j.title}</h3>
+
+                    <p><b>Company:</b> ${j.company}</p>
+
+                    <p><b>City:</b> ${j.city}</p>
+
+                    <p><b>Qualification:</b> ${j.qualification}</p>
+
+                    <p><b>Vacancies:</b> ${j.vacancies}</p>
+
+                    <p><b>Deadline:</b> ${j.deadline}</p>
+
+                    <div class="btns">
+                        <button class="details"
+                            onclick="showDetails('${j.id}')">
+                            Details
+                        </button>
+
+                        <a class="apply"
+                            href="${j.apply}"
+                            target="_blank">
+                            Apply Now
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+
+        if (firebaseJobs.length === 0) {
+            box.innerHTML = "<p>No jobs available.</p>";
+        }
+
+    } catch (error) {
+        console.error("Firebase Jobs Error:", error);
+        box.innerHTML =
+            "<p>Jobs load nahi ho sakin. Firebase connection check karein.</p>";
+    }
+          }
+function renderSchemes() {
+    const box = document.getElementById("schemes");
+
+    box.innerHTML = "";
+
+    schemes.forEach(s => {
+        box.innerHTML += `
+        <div class="job">
+            <span class="badge">${s.category}</span>
+
+            <h3>${s.title}</h3>
+
+            <p><b>Department:</b> ${s.department}</p>
+
+            <p>${s.description}</p>
+
+            <button class="details" onclick="showSchemeDetails(${s.id})">
+                مکمل تفصیل
+            </button>
+        </div>
+        `;
+    });
+}
+  
+function renderPaginationControls(totalItems) {
+  const paginationBox = document.getElementById("pagination");
+  paginationBox.innerHTML = "";
+
+  const totalPages = Math.ceil(totalItems / jobsPerPage);
+  if (totalPages <= 1) return;
+
+  const prevBtn = document.createElement("button");
+  prevBtn.innerText = "« Previous";
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderJobs();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+  };
+  paginationBox.appendChild(prevBtn);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageBtn = document.createElement("button");
+    pageBtn.innerText = i;
+    if (i === currentPage) pageBtn.classList.add("active");
+    pageBtn.onclick = () => {
+      currentPage = i;
+      renderJobs();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    };
+    paginationBox.appendChild(pageBtn);
+  }
+   const nextBtn = document.createElement("button");
+  nextBtn.innerText = "Next »";
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderJobs();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+  };
+  paginationBox.appendChild(nextBtn);
+}
+
+function searchJobs() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const c = document.getElementById("category").value;
+
+  currentJobsList = jobs.filter(j =>
+    (c === "All" || j.category === c) &&
+    (j.title.toLowerCase().includes(q) ||
+    j.company.toLowerCase().includes(q) ||
+    j.city.toLowerCase().includes(q))
+  );
+
+  currentPage = 1;
+  renderJobs();
+}
+
+function showDetails(id){
+
+const j = currentJobsList.find(job => job.id === id) || jobs.find(job => job.id === id);
+
+if (!j) {
+    document.getElementById("jobDetails").innerHTML = "<p>Job details nahi mil sakin.</p>";
+    document.getElementById("jobModal").style.display = "block";
+    return;
+}
+
+document.getElementById("jobDetails").innerHTML = `
+<h2>${j.title}</h2>
+
+<p><b>Company:</b> ${j.company}</p>
+<p><b>Category:</b> ${j.category}</p>
+<p><b>City:</b> ${j.city}</p>
+<p><b>Job Type:</b> ${j.type || "-"}</p>
+<p><b>Qualification:</b> ${j.qualification}</p>
+<p><b>Experience:</b> ${j.experience || "-"}</p>
+<p><b>Salary:</b> ${j.salary || "-"}</p>
+<p><b>Vacancies:</b> ${j.vacancies}</p>
+<p><b>Published:</b> ${j.published}</p>
+<p><b>Deadline:</b> ${j.deadline || j.end || "-"}</p>
+${j.positions ? `
+<h3>Available Positions</h3>
+<ul>
+${j.positions.map(p=>`
+<li>
+<b>${p.title}</b><br>
+Qualification: ${p.qualification}<br>
+Experience: ${p.experience}
+</li>
+`).join("")}
+</ul>
+` : ""}
+${j.posts ? `<p><b>Posts:</b> ${j.posts}</p>` : ""}
+
+${j.degree ? `<p><b>Degree Level:</b> ${j.degree}</p>` : ""}
+
+${j.education ? `<p><b>Education:</b> ${j.education}</p>` : ""}
+
+${j.degreeArea ? `<p><b>Degree Area:</b> ${j.degreeArea}</p>` : ""}
+<p><b>Description:</b><br>${j.description || "-"}</p>
+
+<br>
+
+<a class="apply" href="${j.apply}" target="_blank">Apply Now</a>
+`;
+
+document.getElementById("jobModal").style.display = "block";
+
+}
+function showSchemeDetails(id) {
+
+    let s = schemes.find(x => x.id == id);
+
+    if (!s) return;
+
+    document.getElementById("jobModal").style.display = "block";
+
+document.getElementById("jobDetails").innerHTML = `
+    <div class="container">
+
+        <h2>${s.title}</h2>
+
+        <p><b>محکمہ:</b> ${s.department}</p>
+
+        <img src="${s.image}" style="width:100%;max-width:500px;border-radius:10px;">
+
+        <h3>تفصیل</h3>
+        <p>${s.description}</p>
+
+        <h3>اہلیت</h3>
+        <ul>
+            ${s.eligibility.map(i=>`<li>${i}</li>`).join("")}
+        </ul>
+
+        <h3>فوائد</h3>
+        <ul>
+            ${s.benefits.map(i=>`<li>${i}</li>`).join("")}
+        </ul>
+
+        <p><b>آخری تاریخ:</b> ${s.lastDate}</p>
+
+        <p><b>اسٹیٹس:</b> ${s.status}</p>
+
+        <p><b>ہیلپ لائن:</b> ${s.helpline}</p>
+
+        <a href="${s.apply}" target="_blank" class="apply">
+            آن لائن درخواست دیں
+        </a>
+
+        <br><br>
+
+        <button onclick="location.reload()">⬅ واپس جائیں</button>
+
+    </div>
+    `;
+}
+  
+function closeModal(){
+
+document.getElementById("jobModal").style.display = "none";
+
+}
+
+renderJobs();
+  renderSchemes();
+</script>
+<div id="jobModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;">
+  <div style="background:#fff;width:90%;max-width:700px;margin:40px auto;padding:20px;border-radius:10px;max-height:80vh;overflow:auto;position:relative;">
+    
+    <span onclick="closeModal()" style="position:absolute;top:10px;right:15px;font-size:28px;cursor:pointer;">&times;</span>
+
+    <div id="jobDetails"></div>
+
+  </div>
+</div>
+<a href="https://wa.me/92405959701" class="whatsapp" target="_blank">
+    💬
+</a>
+  <a href="https://www.facebook.com/share/1969vvSxBa/" class="facebook" target="_blank">
+    f
+  </a>
+  <a href="#" class="topbtn">↑</a>
+<script type="module">
+  // 1. Correct Firebase v10/v11/v12 Imports
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // 2. Your Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMBf8vLY5_fu-20scqoKUvEtUiR-iwgk0",
+    authDomain: "pakjobshunt-a3281.firebaseapp.com",
+    projectId: "pakjobshunt-a3281",
+    storageBucket: "pakjobshunt-a3281.firebasestorage.app",
+    messagingSenderId: "679751897478",
+    appId: "1:679751897478:web:69a5d3c2ef4c5a6679dc07"
+  };
+
+  // 3. Initialize Firebase & Firestore
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 4. Reference to "Jobs" Collection
+  const jobsRef = collection(db, "Jobs");
+
+  // 5. Fetch Data in Realtime
+  onSnapshot(jobsRef, (snapshot) => {
+    const firebaseJobs = [];
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+
+      firebaseJobs.push({
+        id: doc.id,
+        title: data.title || data.Title || "",
+        company: data.company || "",
+        city: data.city || "",
+        qualification: data.qualification || "",
+        vacancies: data.vacancies || "",
+        end: data.deadline || data.end || "",
+        apply: data.apply || "",
+        category: data.category || "Government",
+        description: data.description || "",
+        eligibility: data.eligibility || [],
+        benefits: data.benefits || [],
+        published: data.published || new Date().toISOString(),
+        status: data.status || "Active",
+        helpline: data.helpline || ""
+      });
+    });
+
+    // Merge fetched jobs with any existing array and update view
+    if (typeof jobs !== 'undefined') {
+      currentJobList = [...firebaseJobs, ...jobs];
+    } else {
+      currentJobList = firebaseJobs;
+    }
+
+    currentPage = 1;
+
+    // Render functions call
+    if (typeof renderJobs === 'function') {
+      renderJobs(currentJobList);
+    }
+    if (typeof renderSchemes === 'function') {
+      renderSchemes();
+    }
+  }, (error) => {
+    console.error("Firebase Error:", error);
+  });
+</script>
+</body>
+</html>
