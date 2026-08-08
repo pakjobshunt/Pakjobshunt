@@ -841,7 +841,7 @@ Important Note:
   apply: "https://pakjobshunt.com"
 },
  {
-  id: 110,
+id: 110,
   title: "Data Harmonization and Reconciliation Analyst",
   company: "Punjab Masstransit Authority (PMA)",
   category: "Government",
@@ -1211,7 +1211,7 @@ apply:"https://careers.nadra.gov.pk/JobListing"
   {id:706,title:"Punjab Shrimp Internship Program 2026-27 (75 Posts)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"BS / MS / Bachelor's / Master's (varies by post)",experience:"Fresh / entry-level",salary:"Not specified",vacancies:75,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has launched the Punjab Shrimp Internship Program 2026-27, offering 75 internship positions in Muzaffargarh for a duration of 1 year. Open to candidates with BS, MS, Bachelor's, or Master's qualifications. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
   {id:705,title:"Microbiologist Interns (Paid Internship)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"Master's / Bachelor's (Hons) 16 years — Microbiology, First Division (60% and above)",experience:"Fresh / entry-level",salary:"Up to PKR 100,000/month",vacancies:8,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has announced 8 paid internship positions for Microbiologist Interns under the 'Establishment of Shrimp Estate with Value Chain at 58NB, Sargodha' project. Open to both male and female candidates, age 18-30. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
   {id:704,title:"Pathologist Interns (Paid Internship)",company:"Fisheries Department, Punjab",category:"Government",city:"Multan",type:"Internship",qualification:"Master's / Bachelor's (Hons) 16 years — Microbiology, First Division (60% and above)",experience:"Fresh / entry-level",salary:"Up to PKR 100,000/month",vacancies:8,published:"2026-07-24",end:"2026-08-07",description:"Fisheries Department, Punjab has announced 8 paid internship positions for Pathologist Interns under the 'Establishment of Shrimp Estate with Value Chain at 58NB, Sargodha' project. Open to both male and female candidates, age 18-30. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
-  {id:703,title:"BCC Officer (Behaviour Change Communication)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Faisalabad",type:"Contract",qualification:"Bachelor's in Sociology / Mass Communications / Humanities & Arts / Commerce / Social Sciences",experience:"3 years in social safeguards, community mobilization, communications",salary:"PKR 205,000 – 210,000/month",vacancies:1,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 1 vacancy for BCC Officer under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Chakwal, D.G. Khan, Faisalabad, Multan, and Sargodha divisions. Level: PPS-07. Male candidates, age 18-60. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
+   {id:703,title:"BCC Officer (Behaviour Change Communication)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Faisalabad",type:"Contract",qualification:"Bachelor's in Sociology / Mass Communications / Humanities & Arts / Commerce / Social Sciences",experience:"3 years in social safeguards, community mobilization, communications",salary:"PKR 205,000 – 210,000/month",vacancies:1,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 1 vacancy for BCC Officer under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Chakwal, D.G. Khan, Faisalabad, Multan, and Sargodha divisions. Level: PPS-07. Male candidates, age 18-60. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
   {id:702,title:"Associate Engineer (Water & Sewerage)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Bahawalpur",type:"Contract",qualification:"Diploma in Civil Engineering (DAE / B.Tech)",experience:"3 years relevant work in civil engineering, water supply sector",salary:"PKR 130,000 – 140,000/month",vacancies:5,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 5 vacancies for Associate Engineer (Water & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Bahawalpur, Chakwal, Chiniot, D.G. Khan, Jhang, Lodhran, Multan, Pakpattan, Rajanpur, and Sargodha districts. Level: PPS-06. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
   {id:701,title:"Assistant Manager (Water Supply & Sewerage)",company:"Local Government & Community Development Department (LGCD), Punjab",category:"Government",city:"Multan",type:"Contract",qualification:"BSc in Civil / Public Health Engineering",experience:"3 years relevant experience in civil engineering, infrastructure, water supply sector",salary:"PKR 205,000 – 210,000/month",vacancies:14,published:"2026-07-24",end:"2026-08-07",description:"Local Government & Community Development Department, Punjab has announced 14 vacancies for Assistant Manager (Water Supply & Sewerage) under the Punjab Rural Sustainable Water Supply and Sanitation Project. Positions available across Bhakkar, Chiniot, D.G. Khan, Jhang, Khushab, Multan, Muzaffargarh, Pakpattan, Rajanpur, and Sargodha districts. Level: PPS-07. Apply online via the official Punjab Job Portal.",apply:"https://jobs.punjab.gov.pk/"},
   {id:501,title:"Deputy Manager (Infrastructure & Services)",company:"Punjab Rural Municipal Services Company (PRMSC)",category:"Government",city:"Lahore",type:"Contract",qualification:"As per official criteria — see advertisement",experience:"As per post requirement",salary:"Not specified",vacancies:1,published:"2026-07-25",end:"2026-08-07",description:"Punjab Rural Municipal Services Company (PRMSC) has announced the position of Deputy Manager (Infrastructure & Services) under the Punjab Rural Sustainable Water Supply and Sanitation Project, Punjab province.",apply:"https://jobs.punjab.gov.pk/"},
@@ -1236,35 +1236,17 @@ let currentPage = 1;
 const jobsPerPage = 6;
 let currentJobsList = [...jobs];
 
-async function renderJobs() {
+function renderJobs(jobsData) {
     const box = document.getElementById("jobs");
-    box.innerHTML = "<p>Jobs loading...</p>";
 
     try {
-        const snapshot = await firebase.firestore().collection("Jobs").get();
-
-        const firebaseJobs = snapshot.docs.map(doc => {
-            const data = doc.data();
-
-            return {
-                id: doc.id,
-                title: data.Title || data.title || "",
-                company: data.company || "",
-                city: data.city || "Pakistan",
-                qualification: data.qualification || "",
-                vacancies: data.vacancies || "",
-                deadline: data.deadline || data.end || "",
-                apply: data.apply || "",
-                category: data.category || "Government",
-                published: data.published || new Date().toISOString()
-            };
-        });
+        const firebaseJobs = jobsData && jobsData.length ? jobsData : currentJobsList;
 
         currentJobsList = firebaseJobs;
 
         document.getElementById("totalJobs").innerText = firebaseJobs.length;
 
-        document.getElementById("governmentJobs").innerText =
+        document.getElementById("govJobs").innerText =
             firebaseJobs.filter(j => j.category === "Government").length;
 
         document.getElementById("privateJobs").innerText =
@@ -1278,6 +1260,11 @@ async function renderJobs() {
         );
 
         box.innerHTML = "";
+
+        if (firebaseJobs.length === 0) {
+            box.innerHTML = "<p>Jobs loading...</p>";
+            return;
+        }
 
         firebaseJobs.forEach(j => {
             box.innerHTML += `
@@ -1376,8 +1363,7 @@ function renderPaginationControls(totalItems) {
     };
     paginationBox.appendChild(pageBtn);
   }
-
-  const nextBtn = document.createElement("button");
+   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next »";
   nextBtn.disabled = currentPage === totalPages;
   nextBtn.onclick = () => {
