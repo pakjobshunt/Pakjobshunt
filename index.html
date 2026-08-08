@@ -1236,40 +1236,92 @@ let currentPage = 1;
 const jobsPerPage = 6;
 let currentJobsList = [...jobs];
 
-function renderJobs(list = currentJobsList) {
-  const box = document.getElementById("jobs");
-  box.innerHTML = "";
+async function renderJobs() {
+    const box = document.getElementById("jobs");
+    box.innerHTML = "<p>Jobs loading...</p>";
 
-  document.getElementById("totalJobs").innerText = list.length;
-  document.getElementById("govJobs").innerText = list.filter(j => j.category === "Government").length;
-  document.getElementById("privateJobs").innerText = list.filter(j => j.category === "Private").length;
-  document.getElementById("itJobs").innerText = list.filter(j => j.category === "IT").length;
+    try {
+        const snapshot = await firebase.firestore().collection("Jobs").get();
 
-  list.sort((a, b) => new Date(b.published) - new Date(a.published));
+        const firebaseJobs = snapshot.docs.map(doc => {
+            const data = doc.data();
 
-  const startIndex = (currentPage - 1) * jobsPerPage;
-  const endIndex = startIndex + jobsPerPage;
-  const paginatedJobs = list.slice(startIndex, endIndex);
+            return {
+                id: doc.id,
+                title: data.Title || data.title || "",
+                company: data.company || "",
+                city: data.city || "Pakistan",
+                qualification: data.qualification || "",
+                vacancies: data.vacancies || "",
+                deadline: data.deadline || data.end || "",
+                apply: data.apply || "",
+                category: data.category || "Government",
+                published: data.published || new Date().toISOString()
+            };
+        });
 
-  paginatedJobs.forEach(j => {
-    box.innerHTML += `
-    <div class="job">
-    <span class="badge">${j.category}</span>
-    <h3>${j.title}</h3>
-    <p><b>Company:</b> ${j.company}</p>
-    <p><b>City:</b> ${j.city}</p>
-    <p><b>Qualification:</b> ${j.qualification}</p>
-    <p><b>Vacancies:</b> ${j.vacancies}</p>
-    <p><b>Deadline:</b> ${j.end}</p>
-    <div class="btns">
-<button class="details" onclick="showDetails(${j.id})">Details</button>
-<a class="apply" href="${j.apply}" target="_blank">Apply Now</a>
-</div>
-    </div>`;
-  });
+        currentJobsList = firebaseJobs;
 
-  renderPaginationControls(list.length);
-}
+        document.getElementById("totalJobs").innerText = firebaseJobs.length;
+
+        document.getElementById("governmentJobs").innerText =
+            firebaseJobs.filter(j => j.category === "Government").length;
+
+        document.getElementById("privateJobs").innerText =
+            firebaseJobs.filter(j => j.category === "Private").length;
+
+        document.getElementById("itJobs").innerText =
+            firebaseJobs.filter(j => j.category === "IT").length;
+
+        firebaseJobs.sort((a, b) =>
+            new Date(b.published) - new Date(a.published)
+        );
+
+        box.innerHTML = "";
+
+        firebaseJobs.forEach(j => {
+            box.innerHTML += `
+                <div class="job">
+                    <span class="badge">${j.category}</span>
+
+                    <h3>${j.title}</h3>
+
+                    <p><b>Company:</b> ${j.company}</p>
+
+                    <p><b>City:</b> ${j.city}</p>
+
+                    <p><b>Qualification:</b> ${j.qualification}</p>
+
+                    <p><b>Vacancies:</b> ${j.vacancies}</p>
+
+                    <p><b>Deadline:</b> ${j.deadline}</p>
+
+                    <div class="btns">
+                        <button class="details"
+                            onclick="showDetails('${j.id}')">
+                            Details
+                        </button>
+
+                        <a class="apply"
+                            href="${j.apply}"
+                            target="_blank">
+                            Apply Now
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+
+        if (firebaseJobs.length === 0) {
+            box.innerHTML = "<p>No jobs available.</p>";
+        }
+
+    } catch (error) {
+        console.error("Firebase Jobs Error:", error);
+        box.innerHTML =
+            "<p>Jobs load nahi ho sakin. Firebase connection check karein.</p>";
+    }
+          }
 function renderSchemes() {
     const box = document.getElementById("schemes");
 
@@ -1472,5 +1524,66 @@ renderJobs();
     f
   </a>
   <a href="#" class="topbtn">↑</a>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMBf8vLY5_fu-20scqoKUvEtUiR-iwgk0",
+    authDomain: "pakjobshunt-a3281.firebaseapp.com",
+    projectId: "pakjobshunt-a3281",
+    storageBucket: "pakjobshunt-a3281.firebasestorage.app",
+    messagingSenderId: "679751897478",
+    appId: "1:679751897478:web:69a5d3c2ef4c5a6679dc07"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const jobsRef = collection(db, "Jobs");
+
+onSnapshot(jobsRef, (snapshot) => {
+
+    const firebaseJobs = [];
+
+    snapshot.forEach((doc) => {
+        const data = doc.data();
+
+        firebaseJobs.push({
+            id: doc.id,
+            title: data.Title || "",
+            company: data.company || "",
+            city: data.city || "",
+            qualification: data.qualification || "",
+            vacancies: data.vacancies || "",
+            end: data.deadline || "",
+            apply: data.apply || "",
+            category: data.category || "Private",
+            description: data.description || "",
+            eligibility: data.eligibility || [],
+            benefits: data.benefits || [],
+            published: data.published || new Date().toISOString(),
+            status: data.status || "Active",
+            helpline: data.helpline || ""
+        });
+    });
+
+    // Firebase jobs + existing jobs
+    currentJobsList = [...firebaseJobs, ...jobs];
+
+    currentPage = 1;
+
+    renderJobs(currentJobsList);
+    renderSchemes();
+
+});
+
+</script>
+
 </body>
 </html>
