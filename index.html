@@ -1255,10 +1255,6 @@ function renderJobs(jobsData) {
         document.getElementById("itJobs").innerText =
             firebaseJobs.filter(j => j.category === "IT").length;
 
-        firebaseJobs.sort((a, b) => {
-            const val = j => (j.createdAt ? j.createdAt : new Date(j.published).getTime()) || 0;
-            return val(b) - val(a);
-        });
 
         box.innerHTML = "";
 
@@ -1518,11 +1514,13 @@ document.getElementById("jobs").innerHTML = "<p>Jobs loading...</p>";
   </a>
   <a href="#" class="topbtn">↑</a>
 <script type="module">
-  // 1. Correct Firebase v10/v11/v12 Imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import {
+    getFirestore,
+    collection,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  // 2. Your Firebase Configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCMBf8vLY5_fu-20scqoKUvEtUiR-iwgk0",
     authDomain: "pakjobshunt-a3281.firebaseapp.com",
@@ -1532,59 +1530,194 @@ document.getElementById("jobs").innerHTML = "<p>Jobs loading...</p>";
     appId: "1:679751897478:web:69a5d3c2ef4c5a6679dc07"
   };
 
-  // 3. Initialize Firebase & Firestore
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  // 4. Reference to "Jobs" Collection
   const jobsRef = collection(db, "Jobs");
 
-  // 5. Fetch Data in Realtime
-  onSnapshot(jobsRef, (snapshot) => {
-    const firebaseJobs = [];
+  // Convert Firebase Timestamp / date / string into milliseconds
+  function getJobTime(job) {
+    if (job.createdAt) {
+      if (typeof job.createdAt.toMillis === "function") {
+        return job.createdAt.toMillis();
+      }
 
-    snapshot.forEach((doc) => {
-      const data = doc.data();
+      if (job.createdAt.seconds) {
+        return job.createdAt.seconds * 1000;
+      }
 
-      firebaseJobs.push({
-        id: doc.id,
-        title: data.title || data.Title || "",
-        company: data.company || "",
-        city: data.city || "",
-        qualification: data.qualification || "",
-        vacancies: data.vacancies || "",
-        end: data.deadline || data.end || "",
-        apply: data.apply || "",
-        category: data.category || "Government",
-        description: data.description || "",
-        eligibility: data.eligibility || [],
-        benefits: data.benefits || [],
-        published: data.published || new Date().toISOString(),
-        status: data.status || "Active",
-        helpline: data.helpline || "",
-        createdAt: data.createdAt || 0
-      });
+      if (typeof job.createdAt === "number") {
+        return job.createdAt;
+      }
+
+      const createdDate = new Date(job.createdAt).getTime();
+
+      if (!isNaN(createdDate)) {
+        return createdDate;
+      }
+    }
+
+    if (job.published) {
+      const publishedDate = new Date(job.published).getTime();
+
+      if (!isNaN(publishedDate)) {
+        return publishedDate;
+      }
+    }
+
+    return 0;
+  }
+
+  // Always sort newest job first
+  function sortJobsNewestFirst(list) {
+    return list.sort((a, b) => {
+      return getJobTime(b) - getJobTime(a);
     });
+  }
 
-    // Merge fetched jobs with any existing array and update view
-    if (typeof jobs !== 'undefined') {
-      currentJobList = [...firebaseJobs, ...jobs];
-    } else {
-      currentJobList = firebaseJobs;
-    }
-
+  // Show existing/static jobs immediately
+  if (typeof jobs !== "undefined") {
+    currentJobsList = sortJobsNewestFirst([...jobs]);
     currentPage = 1;
+    renderJobs(currentJobsList);
+  }
 
-    // Render functions call
-    if (typeof renderJobs === 'function') {
-      renderJobs(currentJobList);
+  // Firebase realtime listener
+  onSnapshot(
+    jobsRef,
+    (snapshot) => {
+
+      const firebaseJobs = [];
+
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+
+        firebaseJobs.push({
+          id: doc.id,
+
+          title: data.title || data.Title || "",
+          company: data.company || "",
+          city: data.city || "",
+          type: data.type || "",
+
+          qualification: data.qualification || "",
+          experience: data.experience || "",
+          salary: data.salary || "",
+
+          vacancies: data.vacancies || "",
+
+          end: data.deadline || data.end || "",
+          deadline: data.deadline || data.end || "",
+
+          apply: data.apply || "",
+
+          category: data.category || "Government",
+
+          description: data.description || "",
+
+          eligibility: data.eligibility || [],
+          benefits: data.benefits || [],
+          positions: data.positions || [],
+
+          published: data.published || "",
+
+          createdAt: data.createdAt || 0,
+
+          status: data.status || "Active",
+
+          helpline: data.helpline || "",
+
+          posts: data.posts || "",
+          degree: data.degree || "",
+          education: data.education || "",
+          degreeArea: data.degreeArea || ""
+        });
+      });
+
+      /*
+       * IMPORTANT:
+       * Firebase jobs + existing GitHub jobs
+       * Combine both into ONE list.
+       */
+      let allJobs = [
+        ...firebaseJobs,
+        ...(typeof jobs !== "undefined" ? jobs : [])
+      ];
+
+      /*
+       * Remove duplicate jobs.
+       * Firebase document ID is preferred.
+       */
+      const uniqueJobs = [];
+      const seen = new Set();
+
+      allJobs.forEach(job => {
+
+        const key =
+          job.id ||
+          (
+            String(job.title).trim().toLowerCase() +
+            "|" +
+            String(job.company).trim().toLowerCase() +
+            "|" +
+            String(job.city).trim().toLowerCase()
+          );
+
+        if (!seen.has(key)) {
+          seen.add(key);
+          uniqueJobs.push(job);
+        }
+
+      });
+
+      /*
+       * NEWEST JOB FIRST
+       */
+      allJobs = sortJobsNewestFirst(uniqueJobs);
+
+      /*
+       * Update the real global list
+       */
+      currentJobsList = allJobs;
+
+      currentPage = 1;
+
+      /*
+       * Render ALL jobs
+       */
+      renderJobs(currentJobsList);
+
+      /*
+       * Update government schemes
+       */
+      if (typeof renderSchemes === "function") {
+        renderSchemes();
+      }
+
+      console.log(
+        "Firebase jobs:",
+        firebaseJobs.length,
+        "Total jobs:",
+        currentJobsList.length
+      );
+
+    },
+    (error) => {
+
+      console.error("Firebase Error:", error);
+
+      /*
+       * If Firebase temporarily fails,
+       * don't remove the existing jobs.
+       */
+      if (
+        typeof currentJobsList !== "undefined" &&
+        currentJobsList.length > 0
+      ) {
+        renderJobs(currentJobsList);
+      }
+
     }
-    if (typeof renderSchemes === 'function') {
-      renderSchemes();
-    }
-  }, (error) => {
-    console.error("Firebase Error:", error);
-  });
+  );
 </script>
 </body>
 </html>
