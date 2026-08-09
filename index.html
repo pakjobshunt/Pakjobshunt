@@ -1029,43 +1029,98 @@ renderSchemes();
   const jobsRef = collection(db, "Jobs");
 
   onSnapshot(jobsRef, (snapshot) => {
-    const firebaseJobs = [];
 
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      firebaseJobs.push({
-        id: doc.id,
-        title: data.title || data.Title || "",
-        company: data.company || "",
-        city: data.city || "",
-        qualification: data.qualification || "",
-        vacancies: data.vacancies || "",
-        end: data.deadline || data.end || "",
-        apply: data.apply || "",
-        category: data.category || "Government",
-        description: data.description || "",
-        eligibility: data.eligibility || [],
-        benefits: data.benefits || [],
-        published: data.published || new Date().toISOString(),
-        status: data.status || "Active",
-        helpline: data.helpline || ""
-      });
+  const firebaseJobs = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+
+    firebaseJobs.push({
+      id: doc.id,
+      title: data.title || data.Title || "",
+      company: data.company || "",
+      city: data.city || "",
+      qualification: data.qualification || "",
+      vacancies: data.vacancies || "",
+      end: data.deadline || data.end || "",
+      apply: data.apply || "",
+      category: data.category || "Government",
+      description: data.description || "",
+      eligibility: data.eligibility || [],
+      benefits: data.benefits || [],
+      published: data.published || new Date().toISOString(),
+      status: data.status || "Active",
+      helpline: data.helpline || ""
     });
-
-    if (typeof jobs !== 'undefined') {
-      currentJobsList = [...firebaseJobs, ...jobs];
-    } else {
-      currentJobsList = firebaseJobs;
-    }
-
-    currentPage = 1;
-
-    if (typeof renderJobs === 'function') {
-      renderJobs(currentJobsList);
-    }
-  }, (error) => {
-    console.error("Firebase Error:", error);
   });
+
+  // Firebase + existing jobs
+  const mergedJobs = [
+    ...firebaseJobs,
+    ...(typeof jobs !== "undefined" ? jobs : [])
+  ];
+
+  // Remove duplicate jobs
+  const uniqueJobs = [];
+  const seen = new Set();
+
+  mergedJobs.forEach(job => {
+    const id = String(job.id || "");
+
+    if (!seen.has(id)) {
+      seen.add(id);
+      uniqueJobs.push(job);
+    }
+  });
+
+  // NEWEST JOB FIRST
+  uniqueJobs.sort((a, b) => {
+    const dateA = new Date(a.published || 0).getTime();
+    const dateB = new Date(b.published || 0).getTime();
+
+    return dateB - dateA;
+  });
+
+  // Final jobs list
+  currentJobsList = uniqueJobs;
+
+  // Always start from page 1
+  currentPage = 1;
+
+  // Render only after Firebase has loaded
+  if (typeof renderJobs === "function") {
+    renderJobs(currentJobsList);
+  }
+
+  if (typeof renderSchemes === "function") {
+    renderSchemes();
+  }
+
+}, (error) => {
+
+  console.error("Firebase Error:", error);
+
+  // Firebase error fallback
+  currentJobsList = [
+    ...(typeof jobs !== "undefined" ? jobs : [])
+  ];
+
+  currentJobsList.sort((a, b) => {
+    return new Date(b.published || 0).getTime()
+         - new Date(a.published || 0).getTime();
+  });
+
+  currentPage = 1;
+
+  if (typeof renderJobs === "function") {
+    renderJobs(currentJobsList);
+  }
+
+  if (typeof renderSchemes === "function") {
+    renderSchemes();
+  }
+
+});
 </script>
 </body>
 </html>
