@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PakJobsHunt — Admin Upload</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --teal-dark:#00695c;
+  --teal:#009688;
+  --orange:#ff9800;
+  --bg:#f5f7fb;
+  --ink:#1c2b2a;
+  --muted:#6b7c7a;
+  --card:#ffffff;
+  --danger:#d84315;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,Helvetica,sans-serif;}
+body{background:var(--bg);color:var(--ink);padding-bottom:60px;}
+
+header{
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:#fff;
+  padding:22px 20px 28px;
+  text-align:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+header h1{font-size:21px;letter-spacing:.3px;}
+header p{font-size:13px;opacity:.85;margin-top:4px;}
+
+.wrap{max-width:640px;margin:20px auto;padding:0 16px;}
+
+.card{
+  background:var(--card);
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+  margin-bottom:18px;
+}
+
+.badge{
+  display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;margin-bottom:14px;
+}
+
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--teal-dark);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 12px;border:1px solid #d9e4e2;border-radius:8px;font-size:14px;background:#fbfdfd;
+}
+.field textarea{resize:vertical;min-height:60px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+.btn{
+  display:block;width:100%;padding:14px;border:none;border-radius:10px;
+  font-size:15px;font-weight:700;cursor:pointer;margin-top:14px;transition:.2s;
+}
+.btn-primary{background:var(--orange);color:#fff;}
+.btn-primary:hover{filter:brightness(1.05);}
+.btn-primary:disabled{background:#e0c9a6;cursor:not-allowed;}
+
+.status{font-size:13px;color:var(--muted);margin-top:10px;text-align:center;min-height:16px;}
+.status.err{color:var(--danger);font-weight:600;}
+.status.ok{color:var(--teal-dark);font-weight:600;}
+
+.spinner{
+  width:16px;height:16px;border:2px solid rgba(255,152,0,.3);border-top-color:#ff9800;
+  border-radius:50%;display:inline-block;vertical-align:middle;margin-right:8px;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5;}
+.locked{display:flex;align-items:center;justify-content:center;min-height:60vh;padding:20px;}
+.locked .card{width:100%;max-width:340px;text-align:center;}
+.locked input{text-align:center;letter-spacing:4px;font-size:20px;}
+</style>
+</head>
+<body>
+
+<div id="lockScreen" class="locked">
+  <div class="card">
+    <div class="badge">🔒 Admin Access</div>
+    <div class="field">
+      <input id="passInput" type="password" placeholder="Passcode">
+    </div>
+    <button class="btn btn-primary" id="unlockBtn">Unlock</button>
+    <div class="status err" id="lockStatus"></div>
+  </div>
+</div>
+
+<div id="mainApp" style="display:none">
+
+<header>
+  <h1>📤 PakJobsHunt Admin</h1>
+  <p>Job details confirm karein aur website pe upload karein</p>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <div class="badge">Paste from Claude</div>
+    <div class="field">
+      <label>Claude ka diya hua data yahan paste karein</label>
+      <textarea id="pasteBox" rows="6" placeholder="Title: ...&#10;Company: ...&#10;City: ...&#10;..."></textarea>
+    </div>
+    <button class="btn btn-primary" id="fillBtn" style="background:var(--teal-dark)">📋 Fill Form</button>
+  </div>
+
+  <div class="card">
+    <div class="badge">Review before upload</div>
+
+    <div class="field">
+      <label>Job Title</label>
+      <input id="f_title" type="text" autocomplete="off">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Company / Department</label>
+        <input id="f_company" type="text" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>City</label>
+        <input id="f_city" type="text" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Category</label>
+        <select id="f_category">
+          <option>Government</option>
+          <option>Private</option>
+          <option>IT</option>
+          <option>Banking</option>
+          <option>Medical</option>
+          <option>Engineering</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Vacancies</label>
+        <input id="f_vacancies" type="text" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Qualification</label>
+      <input id="f_qualification" type="text" autocomplete="off">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Deadline</label>
+        <input id="f_deadline" type="text" placeholder="YYYY-MM-DD" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Published Date</label>
+        <input id="f_published" type="text" placeholder="YYYY-MM-DD" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Apply Link</label>
+      <input id="f_apply" type="text" placeholder="https://..." autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea id="f_description" autocomplete="off"></textarea>
+    </div>
+
+    <button class="btn btn-primary" id="uploadBtn">✅ Upload to Website</button>
+    <div class="status" id="uploadStatus"></div>
+  </div>
+
+  <p class="hint">Ye page sirf link se khulta hai, website pe kahin link nahi diya gaya. Bookmark kar lein taake dobara dhoondna na pade.</p>
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+// Simple passcode gate — NOT real security, just keeps casual visitors out.
+// Change this to whatever you like.
+const ADMIN_PASSCODE = "pakjobs786";
+
+const lockScreen = document.getElementById("lockScreen");
+const mainApp = document.getElementById("mainApp");
+const unlockBtn = document.getElementById("unlockBtn");
+const passInput = document.getElementById("passInput");
+const lockStatus = document.getElementById("lockStatus");
+
+function unlock() {
+  if (passInput.value === ADMIN_PASSCODE) {
+    lockScreen.style.display = "none";
+    mainApp.style.display = "block";
+    sessionStorage.setItem("pjh_admin_unlocked", "1");
+    initApp();
+  } else {
+    lockStatus.textContent = "Ghalat passcode.";
+  }
+}
+unlockBtn.addEventListener("click", unlock);
+passInput.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
+
+if (sessionStorage.getItem("pjh_admin_unlocked") === "1") {
+  lockScreen.style.display = "none";
+  mainApp.style.display = "block";
+  initApp();
+}
+
+function getParam(name, fallback) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name) || fallback || "";
+}
+
+function applyParamsToForm() {
+  document.getElementById("f_title").value = getParam("t");
+  document.getElementById("f_company").value = getParam("c");
+  document.getElementById("f_city").value = getParam("ci", "Pakistan");
+  const cat = getParam("cat", "Government");
+  const catSelect = document.getElementById("f_category");
+  if ([...catSelect.options].some(o => o.value === cat)) catSelect.value = cat;
+  document.getElementById("f_vacancies").value = getParam("v");
+  document.getElementById("f_qualification").value = getParam("q");
+  document.getElementById("f_deadline").value = getParam("d");
+  document.getElementById("f_published").value = getParam("p", new Date().toISOString().slice(0,10));
+  document.getElementById("f_apply").value = getParam("a");
+  document.getElementById("f_description").value = getParam("de");
+}
+
+function initApp() {
+  applyParamsToForm();
+  // Re-apply shortly after in case browser autofill overwrites fields late
+  setTimeout(applyParamsToForm, 300);
+
+  document.getElementById("fillBtn").addEventListener("click", () => {
+    const text = document.getElementById("pasteBox").value;
+    const map = {
+      title: "f_title", company: "f_company", city: "f_city",
+      category: "f_category", vacancies: "f_vacancies",
+      qualification: "f_qualification", deadline: "f_deadline",
+      published: "f_published", apply: "f_apply", description: "f_description"
+    };
+    const lines = text.split("\n");
+    lines.forEach(line => {
+      const idx = line.indexOf(":");
+      if (idx === -1) return;
+      const key = line.slice(0, idx).trim().toLowerCase();
+      const value = line.slice(idx + 1).trim();
+      if (map[key] && value) {
+        const el = document.getElementById(map[key]);
+        if (el) el.value = value;
+      }
+    });
+  });
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMBf8vLY5_fu-20scqoKUvEtUiR-iwgk0",
+    authDomain: "pakjobshunt-a3281.firebaseapp.com",
+    projectId: "pakjobshunt-a3281",
+    storageBucket: "pakjobshunt-a3281.firebasestorage.app",
+    messagingSenderId: "679751897478",
+    appId: "1:679751897478:web:69a5d3c2ef4c5a6679dc07"
+  };
+
+  if (!firebase.apps || !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  const uploadBtn = document.getElementById("uploadBtn");
+  const uploadStatus = document.getElementById("uploadStatus");
+
+  uploadBtn.addEventListener("click", async () => {
+    const job = {
+      title: document.getElementById("f_title").value.trim(),
+      company: document.getElementById("f_company").value.trim(),
+      city: document.getElementById("f_city").value.trim() || "Pakistan",
+      category: document.getElementById("f_category").value,
+      vacancies: document.getElementById("f_vacancies").value.trim(),
+      qualification: document.getElementById("f_qualification").value.trim(),
+      deadline: document.getElementById("f_deadline").value.trim(),
+      published: document.getElementById("f_published").value.trim(),
+      apply: document.getElementById("f_apply").value.trim() || "#",
+      description: document.getElementById("f_description").value.trim(),
+      status: "Active",
+      createdAt: Date.now()
+    };
+
+    if (!job.title || !job.company) {
+      uploadStatus.className = "status err";
+      uploadStatus.textContent = "Title aur Company zaroori hain.";
+      return;
+    }
+
+    uploadBtn.disabled = true;
+    uploadStatus.className = "status";
+    uploadStatus.innerHTML = '<span class="spinner"></span>Upload ho raha hai...';
+
+    try {
+      await db.collection("Jobs").add(job);
+      uploadStatus.className = "status ok";
+      uploadStatus.textContent = "✓ Job upload ho gayi! Website pe live hai.";
+    } catch (err) {
+      uploadStatus.className = "status err";
+      uploadStatus.textContent = "Fail ho gaya: " + err.message;
+      uploadBtn.disabled = false;
+    }
+  });
+}
+</script>
+</body>
+</html>
